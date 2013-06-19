@@ -17,16 +17,12 @@
         }
     };
 
-    var sendTz = function(url) {
-        var xmlHttp = createXMLHttp();
-        if(xmlHttp) {
-            xmlHttp.open('post', url, true);
-            xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            xmlHttp.setRequestHeader('X-CSRFToken', window.csrf_token);
-            xmlHttp.send("offset=" + (new Date()).getTimezoneOffset());
-        }
-    };
-
-    sendTz('/tzdetect/set/');
+    var xmlHttp = createXMLHttp();
+    if(xmlHttp) {
+        xmlHttp.open('post', window.tz_set_endpoint, true);
+        xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xmlHttp.setRequestHeader('X-CSRFToken', window.csrf_token);
+        xmlHttp.send("offset=" + (new Date()).getTimezoneOffset());
+    }
 
 }());

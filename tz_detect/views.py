@@ -12,6 +12,11 @@ class SetOffsetView(View):
         if not offset:
             return HttpResponse("No 'offset' parameter provided", status_code=400)
 
+        try:
+            offset = int(offset)
+        except ValueError:
+            return HttpResponse("Invalid 'offset' value provided", status_code=400)
+
         tz = offset_to_timezone(int(offset))
         request.session['detected_tz'] = tz
 

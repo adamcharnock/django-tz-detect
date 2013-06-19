@@ -3,14 +3,12 @@ from itertools import chain
 
 import pytz
 
-# Top internet using countries
-COUNTRIES = ('CN', 'US', 'IN', 'JP', 'BR', 'RU', 'DE', 'FR', 'GB')
+from tz_detect.settings import TZ_DETECT_COUNTIRES
 
 
 def get_prioritized_timezones():
     def tz_gen():
-        for c in COUNTRIES:
-            print c
+        for c in TZ_DETECT_COUNTIRES:
             yield pytz.country_timezones(c)
         yield pytz.common_timezones
 

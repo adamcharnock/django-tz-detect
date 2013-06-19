@@ -2,9 +2,10 @@
 <script type="text/javascript">
 
   var csrf_token = '{{ csrf_token }}';
+  var tz_set_endpoint = '{% url "tz_detect__set" %}';
   (function() {
     var tz_script = document.createElement('script');
-    tz_script.src = '{{ STATIC_URL }}tz_detect/js/tzdetect.js';
+    tz_script.src = '{{ STATIC_URL }}tz_detect/js/tzdetect{% if not DEBUG %}.min{% endif %}.js';
     tz_script.setAttribute('async', 'true');
     document.documentElement.firstChild.appendChild(tz_script);
   })();

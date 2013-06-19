@@ -9,4 +9,5 @@ def tz_detect(context):
     return {
         'show': not hasattr(context['request'], 'timezone_active'),
         'STATIC_URL': settings.STATIC_URL,
+        'DEBUG': settings.DEBUG,
     }
