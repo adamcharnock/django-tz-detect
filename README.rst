@@ -73,10 +73,6 @@ Installation
     # Defaults to the top Internet using countries.
     TZ_DETECT_COUNTIRES = ('CN', 'US', 'IN', 'JP', 'BR', 'RU', 'DE', 'FR', 'GB')
 
-.. note:: 
-
-    You need ``Django>=1.4`` to use tz_detect
-
 
 Caveats
 -------
