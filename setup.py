@@ -15,6 +15,7 @@ setup(
     author='Adam Charnock',
     author_email='adam@adamcharnock.com',
     packages=find_packages(),
+    package_dir={'tz_detect': 'tz_detect'},
     package_data={
         'tz_detect': [
             'templates/tz_detect/detector.html',
