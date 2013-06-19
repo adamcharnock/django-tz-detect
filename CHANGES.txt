@@ -4,6 +4,12 @@ This file will be added to as part of each release
 
 ----
 
+Version 0.1.1, Wed 19 Jun 2013
+===============================
+
+bd71116867	Fixing setup.py packages directive (Adam Charnock)
+
+
 Version 0.1.0 (first version), Wed 19 Jun 2013
 ===============================================
 
