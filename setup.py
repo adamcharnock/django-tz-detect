@@ -6,7 +6,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-from django_tz_detect import __version__
+from tz_detect import __version__
 
 setup(
     name='django-tz-detect',
@@ -15,7 +15,7 @@ setup(
     author='',
     author_email='',
     # If you had django_tz_detect.tests, you would also include that in this list
-    packages=['django_tz_detect'],
+    packages=['tz_detect'],
     # Any executable scripts, typically in 'bin'. E.g 'bin/do-something.py'
     scripts=[],
     # REQUIRED: Your project's URL
@@ -27,6 +27,7 @@ setup(
     long_description=open('README.rst').read() if exists("README.rst") else "",
     # Any requirements here, e.g. "Django >= 1.1.1"
     install_requires=[
-        "django>=1.4"
+        'django>=1.4',
+        'pytz',
     ],
 )

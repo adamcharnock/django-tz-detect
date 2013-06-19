@@ -1,0 +1,13 @@
+{% if show %}
+<script type="text/javascript">
+
+  var csrf_token = '{{ csrf_token }}';
+  (function() {
+    var tz_script = document.createElement('script');
+    tz_script.src = '{{ STATIC_URL }}tz_detect/js/tzdetect.js';
+    tz_script.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(tz_script);
+  })();
+
+</script>
+{% endif %}
