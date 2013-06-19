@@ -3,3 +3,8 @@ Change-log for django-tz-detect.
 This file will be added to as part of each release
 
 ----
+
+Version 0.1.0 (first version), Wed 19 Jun 2013
+===============================================
+
+
