@@ -22,6 +22,7 @@ setup(
             'static/tz_detect/js/tzdetect.min.js',
         ]
     },
+    include_package_data=True,
     # Any executable scripts, typically in 'bin'. E.g 'bin/do-something.py'
     scripts=[],
     # REQUIRED: Your project's URL
