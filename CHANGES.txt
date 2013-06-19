@@ -4,6 +4,12 @@ This file will be added to as part of each release
 
 ----
 
+Version 0.1.2, Wed 19 Jun 2013
+===============================
+
+adb61c30da	Fixing setup.py packages directive (Adam Charnock)
+
+
 Version 0.1.1, Wed 19 Jun 2013
 ===============================
 
