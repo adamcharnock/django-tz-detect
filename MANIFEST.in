@@ -1,4 +1,3 @@
 include *.txt
 include *.rst
-recursive-include tz_detect/static/tz_detect/js/ *
-recursive-include tz_detect/templates/tz_detect/ *
+graft tz_detect

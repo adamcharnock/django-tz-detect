@@ -18,9 +18,8 @@ setup(
     package_dir={'tz_detect': 'tz_detect'},
     package_data={
         'tz_detect': [
-            'templates/tz_detect/detector.html',
-            'static/tz_detect/js/tzdetect.js',
-            'static/tz_detect/js/tzdetect.min.js',
+            'templates/tz_detect/*',
+            'static/tz_detect/js/*',
         ]
     },
     include_package_data=True,
