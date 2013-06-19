@@ -6,6 +6,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
+from setuptools import find_packages
 from tz_detect import __version__
 
 setup(
@@ -13,7 +14,7 @@ setup(
     version=__version__,
     author='Adam Charnock',
     author_email='adam@adamcharnock.com',
-    packages=['tz_detect'],
+    packages=find_packages(),
     package_data={
         'tz_detect': [
             'templates/tz_detect/detector.html',
