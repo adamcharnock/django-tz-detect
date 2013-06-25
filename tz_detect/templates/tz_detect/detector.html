@@ -7,7 +7,6 @@
     var tz_script = document.createElement('script');
     tz_script.src = '{{ STATIC_URL }}tz_detect/js/tzdetect{% if not DEBUG %}.min{% endif %}.js';
     tz_script.setAttribute('async', 'true');
-    document.documentElement.firstChild.appendChild(tz_script);
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(tz_script, s);
   })();
 
