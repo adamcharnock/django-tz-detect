@@ -4,6 +4,14 @@ This file will be added to as part of each release
 
 ----
 
+Version 0.1.5, Wed 26 Jun 2013
+===============================
+
+5093ecb9de	updating manifest (Adam Charnock)
+e23f761b0f	remove offending line (Rich Atkinson)
+272e396ee3	insert new script next to another script, not just inside opening <html> (Rich Atkinson)
+
+
 Version 0.1.4, Wed 19 Jun 2013
 ===============================
 
