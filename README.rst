@@ -6,6 +6,12 @@ then configure Django's timezone localization system
 accordingly. As a result, dates shown to users will 
 be in their local timezones.
 
+.. image:: https://badge.fury.io/py/django-tz-detect.png
+    :target: https://badge.fury.io/py/django-tz-detect
+
+.. image:: https://pypip.in/d/django-tz-detect/badge.png
+    :target: https://pypi.python.org/pypi/django-tz-detect
+
 How it works
 ------------
 
