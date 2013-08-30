@@ -4,6 +4,12 @@ This file will be added to as part of each release
 
 ----
 
+Version 0.2.1, Fri 30 Aug 2013
+===============================
+
+519dc08132	Updating setup.py to use setuptools exclusively (as per recent seed changes) (Adam Charnock)
+
+
 Version 0.2.0, Fri 30 Aug 2013
 ===============================
 
