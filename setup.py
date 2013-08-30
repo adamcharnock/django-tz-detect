@@ -1,12 +1,8 @@
 #!/usr/bin/env python
 
 from os.path import exists
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+from setuptools import setup, find_packages
 
-from setuptools import find_packages
 from tz_detect import __version__
 
 setup(
