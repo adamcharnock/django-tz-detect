@@ -1,4 +1,39 @@
 (function(){
+
+    areCookiesEnabled = function() {
+        // Credit for this function goes to: http://stackoverflow.com/a/18114024/764723
+        var cookieEnabled = navigator.cookieEnabled;
+
+        // When cookieEnabled flag is present and false then cookies are disabled.
+        if (cookieEnabled === false) {
+            return false;
+        }
+
+        // If cookieEnabled is null or undefined then assume the browser 
+        // doesn't support this flag
+        if (cookieEnabled !== false && !cookieEnabled) {
+            cookieEnabledSupported = false;
+        } else {
+            cookieEnabledSupported = true;
+        }
+
+
+        // try to set a test cookie if we can't see any cookies and we're using 
+        // either a browser that doesn't support navigator.cookieEnabled
+        // or IE (which always returns true for navigator.cookieEnabled)
+        if (!document.cookie && (!cookieEnabledSupported || /*@cc_on!@*/false)) {
+            document.cookie = "testcookie=1";
+
+            if (!document.cookie) {
+                return false;
+            } else {
+                document.cookie = "testcookie=; expires=" + new Date(0).toUTCString();
+            }
+        }
+
+        return true;
+    };
+
     var createXMLHttp = function() {
         var xmlHttp = null;
         // Use XMLHttpRequest where available
@@ -16,6 +51,13 @@
             }
         }
     };
+
+    if(!areCookiesEnabled()) {
+        // If cookies are disabled then storing the timezone in the user's 
+        // session is a hopeless task and will trigger a request for each 
+        // page load. Therefore, we shouldn't bother.
+        return;
+    }
 
     var xmlHttp = createXMLHttp();
     if(xmlHttp) {
