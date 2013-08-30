@@ -3,6 +3,7 @@
     areCookiesEnabled = function() {
         // Credit for this function goes to: http://stackoverflow.com/a/18114024/764723
         var cookieEnabled = navigator.cookieEnabled;
+        var cookieEnabledSupported;
 
         // When cookieEnabled flag is present and false then cookies are disabled.
         if (cookieEnabled === false) {
