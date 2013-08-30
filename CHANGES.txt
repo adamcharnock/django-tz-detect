@@ -4,6 +4,14 @@ This file will be added to as part of each release
 
 ----
 
+Version 0.2.0, Fri 30 Aug 2013
+===============================
+
+071d092216	Correcting JS error (for issue #2) (Adam Charnock)
+634d77b8ad	Work on issue #2 - Disable posting timezone to server if cookies are disabled (Adam Charnock)
+eec2d70754	Adding badges to readme (Adam Charnock)
+
+
 Version 0.1.5, Wed 26 Jun 2013
 ===============================
 
