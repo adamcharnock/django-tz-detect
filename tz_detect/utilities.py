@@ -3,12 +3,12 @@ from itertools import chain
 
 import pytz
 
-from tz_detect.settings import TZ_DETECT_COUNTIRES
+from tz_detect.settings import TZ_DETECT_COUNTRIES
 
 
 def get_prioritized_timezones():
     def tz_gen():
-        for c in TZ_DETECT_COUNTIRES:
+        for c in TZ_DETECT_COUNTRIES:
             yield pytz.country_timezones(c)
         yield pytz.common_timezones
 
