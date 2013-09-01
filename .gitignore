@@ -5,3 +5,4 @@
 *.egg-info
 dist
 build
+*.sqlite3

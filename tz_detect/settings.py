@@ -13,7 +13,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '.db.sqllite3',
+        'NAME': '.db.sqlite3',
     }
 }
 
@@ -112,7 +112,11 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'tz_detect',
+    'django_nose',
 )
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = '-s'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

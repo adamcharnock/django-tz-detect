@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from pytz.tzinfo import BaseTzInfo
+from mock import patch
 
 from django.test import TestCase
 from django.test.client import RequestFactory
@@ -17,7 +18,7 @@ class ViewTestCase(TestCase):
 
     def test_xhr_valid(self):
         from .views import SetOffsetView
-        request = self.factory.post('/abc', {'offset': '-60'})
+        request = self.factory.post('/abc', {'offset': '-60'}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.add_session(request)
         
         response = SetOffsetView.as_view()(request)
@@ -25,9 +26,21 @@ class ViewTestCase(TestCase):
         self.assertIn('detected_tz', request.session)
         self.assertIsInstance(request.session['detected_tz'], BaseTzInfo)
 
+    @patch('tz_detect.views.TZ_RELOAD', True)
+    def test_redirect_valid(self):
+        from .views import SetOffsetView
+        request = self.factory.get('/abc', {'offset': '-60', 'next': '/foo'})
+        self.add_session(request)
+        
+        response = SetOffsetView.as_view()(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], '/foo')
+        self.assertIn('detected_tz', request.session)
+        self.assertIsInstance(request.session['detected_tz'], BaseTzInfo)
+
     def test_xhr_bad_method(self):
         from .views import SetOffsetView
-        request = self.factory.get('/abc')
+        request = self.factory.get('/abc', {'offset': '-60'}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.add_session(request)
 
         response = SetOffsetView.as_view()(request)
@@ -35,19 +48,74 @@ class ViewTestCase(TestCase):
 
     def test_xhr_no_offset(self):
         from .views import SetOffsetView
-        request = self.factory.post('/abc')
+        request = self.factory.post('/abc', HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.add_session(request)
 
         response = SetOffsetView.as_view()(request)
         self.assertEqual(response.status_code, 400)
+
+    @patch('tz_detect.views.TZ_RELOAD', True)
+    def test_redirect_no_offset(self):
+        from .views import SetOffsetView
+        request = self.factory.get('/abc', {'next': '/foo'})
+        self.add_session(request)
+        
+        response = SetOffsetView.as_view()(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], '/foo')
+        self.assertNotIn('detected_tz', request.session)
 
     def test_xhr_bad_offset(self):
         from .views import SetOffsetView
-        request = self.factory.post('/abc', {'offset': '12foo34'})
+        request = self.factory.post('/abc', {'offset': '12foo34'} ,HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.add_session(request)
 
         response = SetOffsetView.as_view()(request)
         self.assertEqual(response.status_code, 400)
+
+    @patch('tz_detect.views.TZ_RELOAD', True)
+    def test_redirect_bad_offset(self):
+        from .views import SetOffsetView
+        request = self.factory.get('/abc', {'offset': '12foo34', 'next': '/foo'})
+        self.add_session(request)
+        
+        response = SetOffsetView.as_view()(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], '/foo')
+        self.assertNotIn('detected_tz', request.session)
+
+    @patch('tz_detect.views.TZ_RELOAD', True)
+    def test_redirect_valid_default_url(self):
+        from .views import SetOffsetView
+        request = self.factory.get('/abc', {'offset': '-60'})
+        self.add_session(request)
+        
+        response = SetOffsetView.as_view()(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], '/')
+        self.assertIn('detected_tz', request.session)
+        self.assertIsInstance(request.session['detected_tz'], BaseTzInfo)
+
+    @patch('tz_detect.views.TZ_RELOAD', True)
+    def test_redirect_unsafe_url(self):
+        from .views import SetOffsetView
+        request = self.factory.get('/abc', {'next': 'http://evil.com/foo', 'offset': '-60'})
+        self.add_session(request)
+        
+        response = SetOffsetView.as_view()(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['Location'], '/')
+        self.assertIn('detected_tz', request.session)
+        self.assertIsInstance(request.session['detected_tz'], BaseTzInfo)
+
+    @patch('tz_detect.views.TZ_RELOAD', False)
+    def test_redirect_disabled(self):
+        from .views import SetOffsetView
+        request = self.factory.get('/abc', {'offset': '-60', 'next': '/foo'})
+        self.add_session(request)
+        
+        response = SetOffsetView.as_view()(request)
+        self.assertEqual(response.status_code, 405)
 
 
 class OffsetToTimezoneTestCase(TestCase):
