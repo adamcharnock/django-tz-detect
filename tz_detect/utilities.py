@@ -3,7 +3,7 @@ from itertools import chain
 
 import pytz
 
-from tz_detect.settings import TZ_DETECT_COUNTRIES
+from tz_detect.defaults import TZ_DETECT_COUNTRIES
 
 
 def get_prioritized_timezones():
@@ -15,10 +15,14 @@ def get_prioritized_timezones():
     return chain.from_iterable(tz_gen())
 
 
-def offset_to_timezone(offset):
-    """Convert a minutes offset (JavaScript-style) into a pytz timezone"""
+def offset_to_timezone(offset, now=None):
+    """Convert a minutes offset (JavaScript-style) into a pytz timezone
+
+    The `now` parameter is generally used for testing only
+    """
     clostest_tz = None
     clostest_delta = 1440
+    now = now or datetime.now()
 
     # JS offsets are flipped and can be negative, so
     # unflip and put into range 0 - 1440
@@ -27,7 +31,7 @@ def offset_to_timezone(offset):
 
     for tz_name in get_prioritized_timezones():
         tz = pytz.timezone(tz_name)
-        tz_offset = tz.utcoffset(datetime.now()).seconds / 60
+        tz_offset = tz.utcoffset(now).seconds / 60
         delta = tz_offset - user_offset
         if abs(delta) < abs(clostest_delta):
             clostest_tz = tz
