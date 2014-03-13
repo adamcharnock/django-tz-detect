@@ -18,6 +18,6 @@ class SetOffsetView(View):
             return HttpResponse("Invalid 'offset' value provided", status=400)
 
         tz = offset_to_timezone(int(offset))
-        request.session['detected_tz'] = tz
+        request.session['detected_tz'] = tz.zone
 
         return HttpResponse("OK")
