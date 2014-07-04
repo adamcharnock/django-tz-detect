@@ -11,7 +11,7 @@ class TimezoneMiddleware(object):
             # tag to detect if the timezone has been activated
             request.timezone_active = True
             # for existing sessions storing BaseTzInfo objects
-            if type(tz) == BaseTzInfo:
+            if isinstance(tz, BaseTzInfo):
                 timezone.activate(tz)
             else:
                 timezone.activate(offset_to_timezone(tz))
