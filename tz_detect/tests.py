@@ -53,7 +53,7 @@ class ViewTestCase(TestCase):
 class OffsetToTimezoneTestCase(TestCase):
 
     def setUp(self):
-        self.summer = datetime(2013, 06, 15, 12, 0, 0)
+        self.summer = datetime(2013, 6, 15, 12, 0, 0)
         self.winter = datetime(2013, 12, 15, 12, 0, 0)
 
     # Tests for various cities for both regular and daylight saving time
