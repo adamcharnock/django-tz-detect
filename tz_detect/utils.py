@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import pytz
-from datetime import datetime
 from itertools import chain
+from datetime import datetime
+
+from django.utils import timezone
 
 from .defaults import TZ_DETECT_COUNTRIES
 
@@ -32,7 +34,10 @@ def offset_to_timezone(offset, now=None):
 
     for tz_name in get_prioritized_timezones():
         tz = pytz.timezone(tz_name)
-        tz_offset = tz.utcoffset(now).seconds / 60
+        try:
+            tz_offset = tz.utcoffset(now).seconds / 60
+        except (pytz.NonExistentTimeError, pytz.AmbiguousTimeError):
+            tz_offset = tz.localize(now, is_dst=False).utcoffset().seconds / 60
         delta = tz_offset - user_offset
         if abs(delta) < abs(clostest_delta):
             clostest_tz = tz
