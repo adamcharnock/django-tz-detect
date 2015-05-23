@@ -1,6 +1,9 @@
 import pytz
 
 from django.utils import timezone
+from pytz.tzinfo import BaseTzInfo
+
+from .utilities import offset_to_timezone
 
 
 class TimezoneMiddleware(object):
@@ -10,6 +13,10 @@ class TimezoneMiddleware(object):
             # `request.timezone_active` is used in the template
             # tag to detect if the timezone has been activated
             request.timezone_active = True
-            timezone.activate(pytz.timezone(tz))
+            # for existing sessions storing BaseTzInfo objects
+            if isinstance(tz, BaseTzInfo):
+                timezone.activate(tz)
+            else:
+                timezone.activate(offset_to_timezone(tz))
         else:
             timezone.deactivate()
