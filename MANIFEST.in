@@ -1,5 +1,5 @@
-include *.txt
-include *.rst
-graft tz_detect
-recursive-include tz_detect/static/tz_detect/ *
-recursive-include tz_detect/templates/tz_detect/ *
+include CHANGES
+include LICENSE
+include README.rst
+recursive-include tz_detect/static/ *
+recursive-include tz_detect/templates/ *

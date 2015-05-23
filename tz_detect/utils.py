@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
+
+import pytz
 from datetime import datetime
 from itertools import chain
 
-import pytz
-
-from tz_detect.defaults import TZ_DETECT_COUNTRIES
+from .defaults import TZ_DETECT_COUNTRIES
 
 
 def get_prioritized_timezones():
@@ -18,7 +19,7 @@ def get_prioritized_timezones():
 def offset_to_timezone(offset, now=None):
     """Convert a minutes offset (JavaScript-style) into a pytz timezone
 
-    The `now` parameter is generally used for testing only
+    The ``now`` parameter is generally used for testing only
     """
     clostest_tz = None
     clostest_delta = 1440
