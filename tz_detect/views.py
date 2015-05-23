@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+
 from django.http import HttpResponse
 from django.views.generic import View
 
-from tz_detect.utilities import offset_to_timezone
+from .utils import offset_to_timezone
 
 
 class SetOffsetView(View):
