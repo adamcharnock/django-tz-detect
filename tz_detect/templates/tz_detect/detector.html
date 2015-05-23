@@ -1,11 +1,12 @@
 {% load url from future %}
+{% load staticfiles %}
 {% if show %}
 <script type="text/javascript">
   var csrf_token = "{{ csrf_token }}";
   var tz_set_endpoint = '{% url "tz_detect__set" %}';
   (function() {
     var tz_script = document.createElement('script');
-    tz_script.src = '{{ STATIC_URL }}tz_detect/js/tzdetect{% if not DEBUG %}.min{% endif %}.js';
+    tz_script.src = '{% if debug %}{% static "tz_detect/js/tzdetect.js" %}{% else %}{% static "tz_detect/js/tzdetect.min.js" %}{% endif %}';
     tz_script.setAttribute('async', 'true');
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(tz_script, s);
   })();
