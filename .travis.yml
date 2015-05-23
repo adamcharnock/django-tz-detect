@@ -1,0 +1,17 @@
+language: python
+python:
+  - "3.4"
+  - "3.3"
+  - "2.7"
+  - "2.6"
+env:
+  - DJANGO="django==1.4.20"
+  - DJANGO="django==1.5.12"
+  - DJANGO="django==1.6.11"
+  - DJANGO="django==1.7.8"
+  - DJANGO="django==1.8.1"
+install:
+  - pip install -q $DJANGO
+  - pip install -q -r example/requirements.txt
+script:
+  - python example/manage.py test
