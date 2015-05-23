@@ -22,11 +22,11 @@ class ViewTestCase(TestCase):
     def test_xhr_valid(self):
         request = self.factory.post('/abc', {'offset': '-60'})
         self.add_session(request)
-        
+
         response = SetOffsetView.as_view()(request)
         self.assertEqual(response.status_code, 200)
         self.assertIn('detected_tz', request.session)
-        self.assertIsInstance(request.session['detected_tz'], BaseTzInfo)
+        self.assertIsInstance(request.session['detected_tz'], int)
 
     def test_xhr_bad_method(self):
         request = self.factory.get('/abc')
