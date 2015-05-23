@@ -15,6 +15,4 @@ install:
   - pip install -q -r example/requirements.txt
 script:
   - python example/manage.py test
-branches:
-  only:
-    - develop
+
