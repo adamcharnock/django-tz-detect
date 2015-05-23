@@ -1,32 +1,35 @@
 Automatic User Timezone Detection for Django
 ============================================
 
-This app will auto-detect a user's timezone using JavaScript, 
-then configure Django's timezone localization system 
-accordingly. As a result, dates shown to users will 
-be in their local timezones.
+This app will auto-detect a user's timezone using JavaScript, then
+configure Django's timezone localization system accordingly. As a
+result, dates shown to users will be in their local timezones.
 
-.. image:: https://badge.fury.io/py/django-tz-detect.png
-    :target: https://badge.fury.io/py/django-tz-detect
+.. image:: https://pypip.in/version/django-tz-detect/badge.svg
+    :target: https://pypi.python.org/pypi/django-tz-detect/
 
-.. image:: https://pypip.in/d/django-tz-detect/badge.png
-    :target: https://pypi.python.org/pypi/django-tz-detect
+.. image:: https://pypip.in/download/django-tz-detect/badge.svg
+    :target: https://pypi.python.org/pypi/django-tz-detect/
+
+.. image:: https://pypip.in/license/django-tz-detect/badge.svg
+    :target: https://pypi.python.org/pypi/django-tz-detect/
 
 How it works
 ------------
 
-On the first page view you should find that tz_detect places a piece 
-of asynchronous JavaScript code into your page using the template tag you inserted.
-The script will obtain the user's GMT offset using ``getTimezoneOffset``, and post it 
-back to Django. The offset is stored in the user's session and Django's timezone awareness is 
-configured in the middleware.
+On the first page view you should find that ``tz_detect`` places a
+piece of asynchronous JavaScript code into your page using the
+template tag you inserted.  The script will obtain the user's GMT
+offset using ``getTimezoneOffset``, and post it back to Django. The
+offset is stored in the user's session and Django's timezone awareness
+is configured in the middleware.
 
 The JavaScript will not be displayed in future requests.
 
 Installation
 ------------
 
-1. Either checkout tz_detect from GitHub, or install using pip:
+1. Either checkout ``tz_detect`` from GitHub, or install using pip:
 
 .. code-block:: bash
 
@@ -37,6 +40,7 @@ Installation
 .. code-block:: python
 
     INSTALLED_APPS = (
+        ...
         'tz_detect',
     )
 
@@ -59,13 +63,7 @@ Installation
 .. code-block:: python
 
     MIDDLEWARE_CLASSES = (
-        # Django defaults
-        'django.middleware.common.CommonMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.csrf.CsrfViewMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        # For tz_detect
+        ...
         'tz_detect.middleware.TimezoneMiddleware',
      )
 
@@ -79,6 +77,12 @@ Installation
     # Defaults to the top Internet using countries.
     TZ_DETECT_COUNTRIES = ('CN', 'US', 'IN', 'JP', 'BR', 'RU', 'DE', 'FR', 'GB')
 
+Please see ``example`` application. This application is used to manually
+test the functionalities of this package. This also serves as a good
+example.
+
+You need only Django 1.4 or above to run that. It might run on older
+versions but that is not tested.
 
 Caveats
 -------
