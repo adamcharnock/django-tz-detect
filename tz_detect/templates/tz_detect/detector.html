@@ -1,7 +1,7 @@
+{% load url from future %}
 {% if show %}
 <script type="text/javascript">
-
-  var csrf_token = '{{ csrf_token }}';
+  var csrf_token = "{{ csrf_token }}";
   var tz_set_endpoint = '{% url "tz_detect__set" %}';
   (function() {
     var tz_script = document.createElement('script');
@@ -9,6 +9,5 @@
     tz_script.setAttribute('async', 'true');
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(tz_script, s);
   })();
-
 </script>
 {% endif %}
