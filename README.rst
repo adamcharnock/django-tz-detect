@@ -44,21 +44,30 @@ Installation
         'tz_detect',
     )
 
-3. Update your ``urls.py`` file:
+3. Be sure you have the ``django.core.context_processors.request`` processor
+   
+.. code-block:: python
+
+    TEMPLATE_CONTEXT_PROCESSORS = (
+        ...
+        'django.core.context_processors.request',
+    )
+
+4. Update your ``urls.py`` file:
 
 .. code-block:: python
 
     urlpatterns = patterns('',
-        url(r'^tz-detect/', include('tz_detect.urls')),
+        url(r'^tz_detect/', include('tz_detect.urls')),
         ...
     )
 
-4. Add the detection template tag to your site, ideally in your base layout just before the ``</body>`` tag::
+5. Add the detection template tag to your site, ideally in your base layout just before the ``</body>`` tag::
     
     {% load tz_detect %}
     {% tz_detect %}
 
-5. Add ``TimezoneMiddleware`` to ``MIDDLEWARE_CLASSES``:
+6. Add ``TimezoneMiddleware`` to ``MIDDLEWARE_CLASSES``:
 
 .. code-block:: python
 
@@ -67,7 +76,7 @@ Installation
         'tz_detect.middleware.TimezoneMiddleware',
      )
 
-6. (Optional) Configure the countries in which your app will be most commonly used:
+7. (Optional) Configure the countries in which your app will be most commonly used:
 
 .. code-block:: python
 
