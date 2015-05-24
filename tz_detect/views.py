@@ -1,7 +1,7 @@
+# -*- coding: utf-8 -*-
+
 from django.http import HttpResponse
 from django.views.generic import View
-
-from tz_detect.utilities import offset_to_timezone
 
 
 class SetOffsetView(View):
@@ -17,7 +17,6 @@ class SetOffsetView(View):
         except ValueError:
             return HttpResponse("Invalid 'offset' value provided", status=400)
 
-        tz = offset_to_timezone(int(offset))
-        request.session['detected_tz'] = tz
+        request.session['detected_tz'] = int(offset)
 
         return HttpResponse("OK")
