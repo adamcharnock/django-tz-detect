@@ -4,6 +4,14 @@ This file will be added to as part of each release
 
 ----
 
+Version 0.2.3, Sat 24 May 2015
+===============================
+
+e7d778e279      Correctly handle NonExistentTimeError exception. (Basil Shubin)
+34a215ae9a      Support django 1.6+ default session serializer, JSONSerializer (Doug Cox)
+1303ca4ca5      Backward compatibility with django 1.4 (Basil Shubin)
+
+
 Version 0.2.2, Sat 31 Aug 2013
 ===============================
 
