@@ -1,11 +1,6 @@
 django-tz-detect
 ================
 
-Automatic User Timezone Detection for Django
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-****
-
 This app will auto-detect a user's timezone using JavaScript, then
 configure Django's timezone localization system accordingly. As a
 result, dates shown to users will be in their local timezones.
