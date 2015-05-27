@@ -64,8 +64,10 @@ Installation
         ...
     )
 
-5. Add the detection template tag to your site, ideally in your base layout just before the ``</body>`` tag::
-    
+5. Add the detection template tag to your site, ideally in your base layout just before the ``</body>`` tag:
+
+.. code-block:: html
+
     {% load tz_detect %}
     {% tz_detect %}
 
