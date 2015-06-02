@@ -7,13 +7,13 @@ result, dates shown to users will be in their local timezones.
 
 Authored by `Adam Charnock <http://https://adamcharnock.com/>`_, and some great `contributors <https://github.com/adamcharnock/django-tz-detect/contributors>`_.
 
-.. image:: https://pypip.in/version/django-tz-detect/badge.svg
+.. image:: https://img.shields.io/pypi/v/django-tz-detect.svg
     :target: https://pypi.python.org/pypi/django-tz-detect/
 
-.. image:: https://pypip.in/download/django-tz-detect/badge.svg
+.. image:: https://img.shields.io/pypi/dm/django-tz-detect.svg
     :target: https://pypi.python.org/pypi/django-tz-detect/
 
-.. image:: https://pypip.in/license/django-tz-detect/badge.svg
+.. image:: https://img.shields.io/github/license/adamcharnock/django-tz-detect.svg
     :target: https://pypi.python.org/pypi/django-tz-detect/
 
 How it works
