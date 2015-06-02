@@ -16,6 +16,9 @@ Authored by `Adam Charnock <http://https://adamcharnock.com/>`_, and some great 
 .. image:: https://img.shields.io/github/license/adamcharnock/django-tz-detect.svg
     :target: https://pypi.python.org/pypi/django-tz-detect/
 
+.. image:: https://img.shields.io/travis/adamcharnock/django-tz-detect.svg
+    :target: https://travis-ci.org/adamcharnock/django-tz-detect/
+
 How it works
 ------------
 
