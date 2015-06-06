@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import pytz
 from pytz.tzinfo import BaseTzInfo
 
 from django.utils import timezone
@@ -18,6 +19,8 @@ class TimezoneMiddleware(object):
             # for existing sessions storing BaseTzInfo objects
             if isinstance(tz, BaseTzInfo):
                 timezone.activate(tz)
+            elif isinstance(tz, basestring):
+                timezone.activate(pytz.timezone(tz))
             else:
                 timezone.activate(offset_to_timezone(tz))
         else:

@@ -15,5 +15,16 @@ install:
   - pip install -q django==$DJANGO_VERSION
   - pip install -q -r example/requirements.txt
 script:
-  - python example/manage.py test
-
+  - env PYTHONPATH=`pwd` python example/manage.py test tz_detect
+matrix:
+  exclude:
+    - python: "3.4"
+      env: DJANGO_VERSION=1.4.20
+    - python: "3.3"
+      env: DJANGO_VERSION=1.4.20
+    - python: "3.2"
+      env: DJANGO_VERSION=1.4.20
+    - python: "2.6"
+      env: DJANGO_VERSION=1.7.8
+    - python: "2.6"
+      env: DJANGO_VERSION=1.8.2

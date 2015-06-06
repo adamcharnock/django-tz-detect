@@ -4,6 +4,12 @@ This file will be added to as part of each release
 
 ----
 
+Version 0.2.4, Sat 06 May 2015
+===============================
+
+467f6b8648      Handle existing sessions storing ``basestring`` objects (Basil Shubin)
+
+
 Version 0.2.3, Sat 24 May 2015
 ===============================
 

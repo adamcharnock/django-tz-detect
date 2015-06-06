@@ -1,18 +1,23 @@
-Automatic User Timezone Detection for Django
-============================================
+django-tz-detect
+================
 
 This app will auto-detect a user's timezone using JavaScript, then
 configure Django's timezone localization system accordingly. As a
 result, dates shown to users will be in their local timezones.
 
-.. image:: https://pypip.in/version/django-tz-detect/badge.svg
+Authored by `Adam Charnock <http://https://adamcharnock.com/>`_, and some great `contributors <https://github.com/adamcharnock/django-tz-detect/contributors>`_.
+
+.. image:: https://img.shields.io/pypi/v/django-tz-detect.svg
     :target: https://pypi.python.org/pypi/django-tz-detect/
 
-.. image:: https://pypip.in/download/django-tz-detect/badge.svg
+.. image:: https://img.shields.io/pypi/dm/django-tz-detect.svg
     :target: https://pypi.python.org/pypi/django-tz-detect/
 
-.. image:: https://pypip.in/license/django-tz-detect/badge.svg
+.. image:: https://img.shields.io/github/license/adamcharnock/django-tz-detect.svg
     :target: https://pypi.python.org/pypi/django-tz-detect/
+
+.. image:: https://img.shields.io/travis/adamcharnock/django-tz-detect.svg
+    :target: https://travis-ci.org/adamcharnock/django-tz-detect/
 
 How it works
 ------------
@@ -62,8 +67,10 @@ Installation
         ...
     )
 
-5. Add the detection template tag to your site, ideally in your base layout just before the ``</body>`` tag::
-    
+5. Add the detection template tag to your site, ideally in your base layout just before the ``</body>`` tag:
+
+.. code-block:: html
+
     {% load tz_detect %}
     {% tz_detect %}
 
