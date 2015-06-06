@@ -15,5 +15,5 @@ install:
   - pip install -q django==$DJANGO_VERSION
   - pip install -q -r example/requirements.txt
 script:
-  - python example/manage.py test
+  - env PYTHONPATH=`pwd` python example/manage.py test tz_detect
 
