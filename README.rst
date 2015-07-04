@@ -39,62 +39,62 @@ Installation
 
 1. Either checkout ``tz_detect`` from GitHub, or install using pip:
 
-.. code-block:: bash
+   .. code-block:: bash
 
-    pip install django-tz-detect
+       pip install django-tz-detect
 
 2. Add ``tz_detect`` to your `INSTALLED_APPS`:
 
-.. code-block:: python
+   .. code-block:: python
 
-    INSTALLED_APPS = (
-        ...
-        'tz_detect',
-    )
+       INSTALLED_APPS = (
+           ...
+           'tz_detect',
+       )
 
 3. Be sure you have the ``django.core.context_processors.request`` processor
    
-.. code-block:: python
+   .. code-block:: python
 
-    TEMPLATE_CONTEXT_PROCESSORS = (
-        ...
-        'django.core.context_processors.request',
-    )
+       TEMPLATE_CONTEXT_PROCESSORS = (
+           ...
+           'django.core.context_processors.request',
+       )
 
 4. Update your ``urls.py`` file:
 
-.. code-block:: python
+   .. code-block:: python
 
-    urlpatterns = patterns('',
-        url(r'^tz_detect/', include('tz_detect.urls')),
-        ...
-    )
+       urlpatterns = patterns('',
+           url(r'^tz_detect/', include('tz_detect.urls')),
+           ...
+       )
 
 5. Add the detection template tag to your site, ideally in your base layout just before the ``</body>`` tag:
 
-.. code-block:: html
+   .. code-block:: html+django
 
-    {% load tz_detect %}
-    {% tz_detect %}
+       {% load tz_detect %}
+       {% tz_detect %}
 
 6. Add ``TimezoneMiddleware`` to ``MIDDLEWARE_CLASSES``:
 
-.. code-block:: python
+   .. code-block:: python
 
-    MIDDLEWARE_CLASSES = (
-        ...
-        'tz_detect.middleware.TimezoneMiddleware',
-     )
+       MIDDLEWARE_CLASSES = (
+           ...
+           'tz_detect.middleware.TimezoneMiddleware',
+        )
 
 7. (Optional) Configure the countries in which your app will be most commonly used:
 
-.. code-block:: python
+   .. code-block:: python
 
-    # These countries will be prioritized in the search
-    # for a matching timezone. Consider putting your
-    # app's most popular countries first.
-    # Defaults to the top Internet using countries.
-    TZ_DETECT_COUNTRIES = ('CN', 'US', 'IN', 'JP', 'BR', 'RU', 'DE', 'FR', 'GB')
+       # These countries will be prioritized in the search
+       # for a matching timezone. Consider putting your
+       # app's most popular countries first.
+       # Defaults to the top Internet using countries.
+       TZ_DETECT_COUNTRIES = ('CN', 'US', 'IN', 'JP', 'BR', 'RU', 'DE', 'FR', 'GB')
 
 Please see ``example`` application. This application is used to manually
 test the functionalities of this package. This also serves as a good
