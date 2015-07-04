@@ -19,6 +19,9 @@ Authored by `Adam Charnock <http://https://adamcharnock.com/>`_, and some great 
 .. image:: https://img.shields.io/travis/adamcharnock/django-tz-detect.svg
     :target: https://travis-ci.org/adamcharnock/django-tz-detect/
 
+.. image:: https://coveralls.io/repos/adamcharnock/django-tz-detect/badge.svg?branch=develop
+    :target: https://coveralls.io/r/adamcharnock/django-tz-detect?branch=develop
+
 How it works
 ------------
 
