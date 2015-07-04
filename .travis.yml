@@ -14,8 +14,11 @@ env:
 install:
   - pip install -q django==$DJANGO_VERSION
   - pip install -q -r example/requirements.txt
+  - pip install coveralls
 script:
-  - env PYTHONPATH=`pwd` python example/manage.py test tz_detect
+  - env PYTHONPATH=`pwd` coverage run --source=tz_detect example/manage.py test tz_detect
+after_success:
+  coveralls
 matrix:
   exclude:
     - python: "3.4"
