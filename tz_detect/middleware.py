@@ -5,6 +5,11 @@ from pytz.tzinfo import BaseTzInfo
 
 from django.utils import timezone
 
+try:
+    from django.utils import six
+except ImportError:
+    import six
+
 from .utils import offset_to_timezone
 
 
@@ -19,7 +24,7 @@ class TimezoneMiddleware(object):
             # for existing sessions storing BaseTzInfo objects
             if isinstance(tz, BaseTzInfo):
                 timezone.activate(tz)
-            elif isinstance(tz, basestring):
+            elif isinstance(tz, six.string_types):
                 timezone.activate(pytz.timezone(tz))
             else:
                 timezone.activate(offset_to_timezone(tz))

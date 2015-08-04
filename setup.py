@@ -24,6 +24,7 @@ setup(
     install_requires=[
         'django>=1.4',
         'pytz',
+        'six',
     ],    
     classifiers=[
         'Environment :: Web Environment',
