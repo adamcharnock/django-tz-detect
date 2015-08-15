@@ -46,7 +46,7 @@ Installation
 
        pip install django-tz-detect
 
-2. Add ``tz_detect`` to your `INSTALLED_APPS`:
+2. Add ``tz_detect`` to your ``INSTALLED_APPS``:
 
    .. code-block:: python
 
