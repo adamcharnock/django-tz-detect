@@ -2,36 +2,34 @@ language: python
 python:
   - "3.4"
   - "3.3"
-  - "3.2"
   - "2.7"
   - "2.6"
   - "pypy"
   - "pypy3"
 env:
-  - DJANGO_VERSION=1.4.21
-  - DJANGO_VERSION=1.5.12
-  - DJANGO_VERSION=1.6.11
-  - DJANGO_VERSION=1.7.9
-  - DJANGO_VERSION=1.8.3
-install:
+  - DJANGO_VERSION=1.4.2
+  - DJANGO_VERSION=1.5
+  - DJANGO_VERSION=1.6
+  - DJANGO_VERSION=1.7
+  - DJANGO_VERSION=1.8
+before_install:
   - pip install -q django==$DJANGO_VERSION
-  - pip install -q -r example/requirements.txt
-  - pip install coveralls
+install:
+  - python setup.py develop
+  - pip install -q coveralls
 script:
-  - env PYTHONPATH=`pwd` coverage run --source=tz_detect example/manage.py test tz_detect
+  - coverage run --source=tz_detect runtests.py
 after_success:
-  coveralls
+  - coveralls
 matrix:
   exclude:
     - python: "pypy3"
-      env: DJANGO_VERSION=1.4.21
+      env: DJANGO_VERSION=1.4.2
     - python: "3.4"
-      env: DJANGO_VERSION=1.4.21
+      env: DJANGO_VERSION=1.4.2
     - python: "3.3"
-      env: DJANGO_VERSION=1.4.21
-    - python: "3.2"
-      env: DJANGO_VERSION=1.4.21
+      env: DJANGO_VERSION=1.4.2
     - python: "2.6"
-      env: DJANGO_VERSION=1.7.9
+      env: DJANGO_VERSION=1.7
     - python: "2.6"
-      env: DJANGO_VERSION=1.8.3
+      env: DJANGO_VERSION=1.8
