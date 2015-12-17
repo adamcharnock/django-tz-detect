@@ -7,8 +7,8 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 
-from ..views import SetOffsetView
-from ..utils import offset_to_timezone
+from tz_detect.views import SetOffsetView
+from tz_detect.utils import offset_to_timezone
 
 
 class ViewTestCase(TestCase):
