@@ -4,6 +4,6 @@ from django.conf.urls import url
 
 from .views import SetOffsetView
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^set/$', SetOffsetView.as_view(), name="tz_detect__set"),
-)
+]
