@@ -68,10 +68,10 @@ Installation
 
    .. code-block:: python
 
-       urlpatterns = patterns('',
+       urlpatterns = [
            url(r'^tz_detect/', include('tz_detect.urls')),
            ...
-       )
+       ]
 
 5. Add the detection template tag to your site, ideally in your base layout just before the ``</body>`` tag:
 
