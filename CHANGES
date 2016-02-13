@@ -4,6 +4,13 @@ This file will be added to as part of each release
 
 ----
 
+Version 0.2.6, Sat 13 Feb 2016
+===============================
+
+7908c18387      fix for Django 1.10 (kudos to @PetrDlouhy)
+d0bb615217      Added django 1.9 support (Basil Shubin)
+
+
 Version 0.2.5, Sat 06 May 2015
 ===============================
 
