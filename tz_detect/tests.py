@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
-from pytz.tzinfo import BaseTzInfo
 
+from django.contrib.sessions.middleware import SessionMiddleware
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.contrib.sessions.middleware import SessionMiddleware
+from pytz.tzinfo import BaseTzInfo
 
-from tz_detect.views import SetOffsetView
+from tz_detect.templatetags.tz_detect import tz_detect
 from tz_detect.utils import offset_to_timezone
+from tz_detect.views import SetOffsetView
 
 
 class ViewTestCase(TestCase):
@@ -83,5 +84,13 @@ class OffsetToTimezoneTestCase(TestCase):
         self.assertEqual(str(tz), 'Europe/London')
 
 
+class TemplatetagTestCase(TestCase):
 
-
+    def test_no_request_context(self):
+        try:
+            tz_detect({})
+        except KeyError as e:
+            if e.message == 'request':
+                self.fail("Templatetag shouldn't expect request in context.")
+            else:
+                raise
