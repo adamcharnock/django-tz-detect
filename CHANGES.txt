@@ -4,6 +4,16 @@ This file will be added to as part of each release
 
 ----
 
+Version 0.2.7, Thu 28 Apr 2016
+===============================
+
+d52f8b99fe	added missing VERSION file (bashu)
+18bd7675c7	Renaming CHANGES -> CHANGES.txt (as required by seed) (bashu)
+86485a3ad8	Updating version to be stored in VERSION file (as now done by seed) (bashu)
+75c23022d9	Clean up imports (Filip Figiel)
+9228317107	Don't expect request in templatetag context. Fixes #26 (Filip Figiel)
+
+
 Version 0.2.6, Sat 13 Feb 2016
 ===============================
 
