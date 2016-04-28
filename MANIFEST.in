@@ -3,3 +3,4 @@ include LICENSE
 include README.rst
 recursive-include tz_detect/static *
 recursive-include tz_detect/templates *
+include VERSION

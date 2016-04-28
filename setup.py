@@ -22,17 +22,9 @@ def read(*parts):
     return codecs.open(file_path, encoding='utf-8').read()
 
 
-def find_version(*parts):
-    version_file = read(*parts)
-    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M)
-    if version_match:
-        return str(version_match.group(1))
-    raise RuntimeError("Unable to find version string.")
-
-
 setup(
     name='django-tz-detect',
-    version=find_version('tz_detect', '__init__.py'),
+    version=read('VERSION'),
     license='MIT License',
 
     install_requires=[
