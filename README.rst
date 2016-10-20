@@ -80,14 +80,19 @@ Installation
        {% load tz_detect %}
        {% tz_detect %}
 
-6. Add ``TimezoneMiddleware`` to ``MIDDLEWARE_CLASSES``:
+6. Add ``TimezoneMiddleware`` to ``MIDDLEWARE`` or ``MIDDLEWARE_CLASSES``:
 
    .. code-block:: python
 
-       MIDDLEWARE_CLASSES = (
+       MIDDLEWARE = (  # Django >= 1.10
            ...
            'tz_detect.middleware.TimezoneMiddleware',
-        )
+       )
+
+       MIDDLEWARE_CLASSES = (  # Django < 1.10
+           ...
+           'tz_detect.middleware.TimezoneMiddleware',
+       )
 
 7. (Optional) Configure the countries in which your app will be most commonly used:
 

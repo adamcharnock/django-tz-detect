@@ -10,10 +10,15 @@ try:
 except ImportError:
     import six
 
+try:
+    from django.utils.deprecation import MiddlewareMixin
+except ImportError:  # Django < 1.10
+    MiddlewareMixin = object
+
 from .utils import offset_to_timezone
 
 
-class TimezoneMiddleware(object):
+class TimezoneMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         tz = request.session.get('detected_tz')
