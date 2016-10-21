@@ -50,8 +50,7 @@ Installation
 
    .. code-block:: python
 
-       INSTALLED_APPS = (
-           ...
+       INSTALLED_APPS += (
            'tz_detect',
        )
 
@@ -59,18 +58,24 @@ Installation
    
    .. code-block:: python
 
-       TEMPLATE_CONTEXT_PROCESSORS = (
-           ...
-           'django.core.context_processors.request',
-       )
+       TEMPLATES = [
+           {
+               ...
+               'OPTIONS': {
+                   'context_processors': [
+                       ...
+                       'django.template.context_processors.request',
+                   ],
+               },
+           },
+       ]
 
 4. Update your ``urls.py`` file:
 
    .. code-block:: python
 
-       urlpatterns = [
+       urlpatterns += [
            url(r'^tz_detect/', include('tz_detect.urls')),
-           ...
        ]
 
 5. Add the detection template tag to your site, ideally in your base layout just before the ``</body>`` tag:
@@ -80,19 +85,20 @@ Installation
        {% load tz_detect %}
        {% tz_detect %}
 
-6. Add ``TimezoneMiddleware`` to ``MIDDLEWARE`` or ``MIDDLEWARE_CLASSES``:
+6. Add ``TimezoneMiddleware`` to ``MIDDLEWARE``:
 
    .. code-block:: python
 
-       MIDDLEWARE = (  # Django >= 1.10
-           ...
+       import django
+
+       MIDDLEWARE += (
            'tz_detect.middleware.TimezoneMiddleware',
        )
 
-       MIDDLEWARE_CLASSES = (  # Django < 1.10
-           ...
-           'tz_detect.middleware.TimezoneMiddleware',
-       )
+       if django.VERSION < (1, 10):
+           MIDDLEWARE_CLASSES += (
+               'tz_detect.middleware.TimezoneMiddleware',
+           )
 
 7. (Optional) Configure the countries in which your app will be most commonly used:
 
@@ -108,7 +114,7 @@ Please see ``example`` application. This application is used to manually
 test the functionalities of this package. This also serves as a good
 example.
 
-You need only Django 1.4 or above to run that. It might run on older
+You need only Django 1.8 or above to run that. It might run on older
 versions but that is not tested.
 
 Caveats
