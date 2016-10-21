@@ -4,6 +4,16 @@ This file will be added to as part of each release
 
 ----
 
+Version 0.2.8, Fri 21 Oct 2016
+===============================
+
+9e9fd54e8d	dropped support for python 2.6 & 3.3 (bashu)
+a089305ed1	make sure example project runs under django 1.10.x (bashu)
+d0430154d5	Update README.rst (bashu)
+febb8a3afa	Update .travis.yml (Eric Wang)
+8a5c8af4a4	Add Django 1.10 support (Eric Wang)
+
+
 Version 0.2.7, Thu 28 Apr 2016
 ===============================
 
