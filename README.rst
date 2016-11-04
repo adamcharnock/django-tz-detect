@@ -54,7 +54,7 @@ Installation
            'tz_detect',
        )
 
-3. Be sure you have the ``django.core.context_processors.request`` processor
+3. Be sure you have the ``django.template.context_processors.request`` processor
    
    .. code-block:: python
 
