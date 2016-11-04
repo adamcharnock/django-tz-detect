@@ -102,8 +102,9 @@ Installation
 
 7. The timezone offset will be available in your views as a session variable named 'detected_tz' which can be accessed like this:
 
-   .. code-block:: python
-    request.session['detected_tz']
+   .. code-block:: html+django
+
+       request.session['detected_tz']
 
 8. (Optional) Configure the countries in which your app will be most commonly used:
 
