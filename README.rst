@@ -64,7 +64,7 @@ Installation
                'OPTIONS': {
                    'context_processors': [
                        ...
-                       'django.template.context_processors.request',
+                       'django.core.context_processors.request',
                    ],
                },
            },
@@ -100,7 +100,12 @@ Installation
                'tz_detect.middleware.TimezoneMiddleware',
            )
 
-7. (Optional) Configure the countries in which your app will be most commonly used:
+7. The timezone offset will be available in your views as a session variable named 'detected_tz' which can be accessed like this:
+
+   .. code-block:: python
+    request.session['detected_tz']
+
+8. (Optional) Configure the countries in which your app will be most commonly used:
 
    .. code-block:: python
 
