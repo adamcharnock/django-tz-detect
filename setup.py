@@ -7,14 +7,6 @@ import codecs
 import subprocess
 
 from setuptools import setup, find_packages
-from setuptools.command.test import test as TestCommand
-
-
-class TestRunner(TestCommand):
-    user_options = []
-
-    def run(self):
-        raise SystemExit(subprocess.call([sys.executable, 'runtests.py']))
 
 
 def read(*parts):
@@ -52,10 +44,10 @@ setup(
     include_package_data=True,
 
     tests_require=[
+        'django-setuptest',
+        'coveralls',
     ],
-    cmdclass={
-        'test': TestRunner,
-    },
+    test_suite='setuptest.setuptest.SetupTestSuite',
     
     zip_safe=False,
     classifiers=[

@@ -3,7 +3,7 @@ python:
   - "3.4"
   - "2.7"
 env:
-  - DJANGO="Django>=1.4,<1.5"
+  - DJANGO="Django>=1.4.2,<1.5"
   - DJANGO="Django>=1.5,<1.6"
   - DJANGO="Django>=1.6,<1.7"
   - DJANGO="Django>=1.7,<1.8"
@@ -16,15 +16,14 @@ before_install:
   - pip install -q $DJANGO
 install:
   - python setup.py develop
-  - pip install -q coveralls
 script:
-  - coverage run --source=tz_detect runtests.py
+  - python setup.py test
 after_success:
-  coveralls
+  - coveralls
 matrix:
   exclude:
     - python: "3.4"
-      env: DJANGO="Django>=1.4,<1.5"
+      env: DJANGO="Django>=1.4.2,<1.5"
     - python: "2.7"
       env: DJANGO="https://github.com/django/django/archive/master.tar.gz"
   allow_failures:

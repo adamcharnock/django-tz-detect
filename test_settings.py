@@ -1,0 +1,26 @@
+import os
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:'
+    }
+}
+
+INSTALLED_APPS = [
+    'django.contrib.sites',
+    'django.contrib.sessions',
+    'django.contrib.contenttypes',
+    
+    'tz_detect',
+]
+
+MIDDLEWARE_CLASSES = [
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'tz_detect.middleware.TimezoneMiddleware',
+]
+
+MIDDLEWARE = MIDDLEWARE_CLASSES
+
+SITE_ID = 1
