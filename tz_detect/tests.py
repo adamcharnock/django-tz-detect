@@ -8,7 +8,7 @@ from django.test.client import RequestFactory
 from pytz.tzinfo import BaseTzInfo
 
 from tz_detect.templatetags.tz_detect import tz_detect
-from tz_detect.utils import offset_to_timezone
+from tz_detect.utils import offset_to_timezone, convert_header_name
 from tz_detect.views import SetOffsetView
 
 
@@ -82,6 +82,28 @@ class OffsetToTimezoneTestCase(TestCase):
         """Test the fuzzy matching of timezones"""
         tz = offset_to_timezone(-10, now=self.winter)
         self.assertEqual(str(tz), 'Europe/London')
+
+
+class ConvertHeaderNameTestCase(TestCase):
+    """Test for `templatetags.tz_detect.convert_header_name`
+
+    This util converts django header name to suitable for AJAX request
+    """
+    def test_default_header_name(self):
+        # default value for settings.CSRF_HEADER_NAME
+        setting = 'HTTP_X_CSRFTOKEN'
+        result = convert_header_name(setting)
+        self.assertEqual(result, 'x-csrftoken')
+
+    def test_custom_header_name(self):
+        setting = 'HTTP_X_XSRF_TOKEN'
+        result = convert_header_name(setting)
+        self.assertEqual(result, 'x-xsrf-token')
+
+    def test_custom_header_without_http_prefix(self):
+        setting = 'X_XSRF_TOKEN'
+        result = convert_header_name(setting)
+        self.assertEqual(result, 'x-xsrf-token')
 
 
 class TemplatetagTestCase(TestCase):
