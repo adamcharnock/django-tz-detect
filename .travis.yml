@@ -27,5 +27,7 @@ matrix:
       env: DJANGO="Django>=1.4.2,<1.5"
     - python: "2.7"
       env: DJANGO="https://github.com/django/django/archive/master.tar.gz"
+    - python: "2.7"
+      env: DJANGO="Django>=2.0,<2.1"
   allow_failures:
     - env: DJANGO="https://github.com/django/django/archive/master.tar.gz"
