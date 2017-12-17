@@ -64,7 +64,7 @@
     if(xmlHttp) {
         xmlHttp.open('post', window.tz_set_endpoint, true);
         xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xmlHttp.setRequestHeader('X-CSRFToken', window.csrf_token);
+        xmlHttp.setRequestHeader(window.csrf_header_name, window.csrf_token);
         xmlHttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         xmlHttp.send("offset=" + (new Date()).getTimezoneOffset());
     }

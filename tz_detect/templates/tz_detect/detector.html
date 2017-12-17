@@ -4,6 +4,7 @@
 <script type="text/javascript">
   var csrf_token = "{{ csrf_token }}";
   var tz_set_endpoint = '{% url "tz_detect__set" %}';
+  var csrf_header_name = '{{ csrf_header_name }}';
   (function() {
     var tz_script = document.createElement('script');
     tz_script.src = '{% if debug %}{% static "tz_detect/js/tzdetect.js" %}{% else %}{% static "tz_detect/js/tzdetect.min.js" %}{% endif %}';
