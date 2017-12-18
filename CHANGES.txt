@@ -4,6 +4,17 @@ This file will be added to as part of each release
 
 ----
 
+Version 0.2.9, Mon 18 Dec 2017
+===============================
+
+aaae42905b	Excluding testing of django 2.0 on python 2.7 (Adam Charnock)
+45341a3764	Adding django 2.0 to build matrix (Adam Charnock)
+a2c3a79edf	Implement handle of settings.CSRF_HEADER_NAME (Roman Gorbil)
+40dfc82d34	upgraded test suite (Basil Shubin)
+0535c03d5e	Travis config: Add Django 1.11, exclude Python 2.7/Django master (because Django 2.0 will not support Python 2.7), and allow tests against Django master to fail (Drew Hubl)
+d89ad7b8c3	fixed typo, close #31 (Basil Shubin)
+
+
 Version 0.2.8, Fri 21 Oct 2016
 ===============================
 
