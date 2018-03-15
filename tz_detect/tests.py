@@ -53,9 +53,62 @@ class ViewTestCase(TestCase):
 
 class OffsetToTimezoneTestCase(TestCase):
 
-    def setUp(self):
-        self.summer = datetime(2013, 6, 15, 12, 0, 0)
-        self.winter = datetime(2013, 12, 15, 12, 0, 0)
+    # Examples offsets (in hours), and the expected timezones for the beginning and middle of the year.
+    example_offsets_timezones = [
+        # Note: These hours are in JavaScript's Date.getTimezoneOffset() convention,
+        # so the sign is reversed compared to conventional UTC offset notation.
+
+        (12, ('Pacific/Midway', 'Pacific/Midway')),
+        (11, ('Pacific/Midway', 'Pacific/Midway')),
+
+        # USA:
+        (10, ('America/Adak', 'Pacific/Honolulu')),         # HST, HST
+        (9, ('America/Anchorage', 'America/Adak')),         # AKST, HDT
+        (8, ('America/Los_Angeles', 'America/Anchorage')),  # PST, AKDT
+        (7, ('America/Denver', 'America/Phoenix')),         # MST, PDT
+        (6, ('America/Chicago', 'America/Denver')),         # CST, MDT
+        (5, ('America/New_York', 'America/Chicago')),       # EST, CDT
+        (4, ('America/Porto_Velho', 'America/New_York')),   # AMT, EDT
+
+        (3, ('America/Belem', 'America/Belem')),
+        (2, ('America/Noronha', 'America/Noronha')),
+        (1, ('America/Scoresbysund', 'Atlantic/Cape_Verde')),
+
+        # Central Europe:
+        (0, ('Europe/London', 'Africa/Abidjan')),  # GMT, GMT
+        (-1, ('Europe/Berlin', 'Europe/London')),  # CET, BST
+
+        (-2, ('Europe/Kaliningrad', 'Europe/Kaliningrad')),
+        (-3, ('Europe/Moscow', 'Europe/Moscow')),
+        (-4, ('Europe/Astrakhan', 'Europe/Astrakhan')),
+        (-5, ('Asia/Yekaterinburg', 'Asia/Yekaterinburg')),
+        (-6, ('Asia/Urumqi', 'Asia/Urumqi')),
+        (-7, ('Asia/Novosibirsk', 'Asia/Novosibirsk')),
+        (-8, ('Asia/Shanghai', 'Asia/Shanghai')),
+        (-9, ('Asia/Tokyo', 'Asia/Tokyo')),
+        (-10, ('Asia/Vladivostok', 'Asia/Vladivostok')),
+        (-11, ('Asia/Magadan', 'Asia/Magadan')),
+        (-12, ('Asia/Kamchatka', 'Asia/Kamchatka')),
+        (-13, ('Antarctica/McMurdo', 'Pacific/Apia')),
+        (-14, ('Pacific/Apia', 'Pacific/Kiritimati')),
+    ]
+
+    def test_examples(self):
+        # Python < 3.4 compatibility:
+        if not hasattr(self, 'subTest'):
+            self.skipTest('No subTest support')
+
+        for (js_offset_hours, expected_tzs) in self.example_offsets_timezones:
+            with self.subTest(hour=js_offset_hours):
+                js_offset_minutes = js_offset_hours * 60
+                actual_tzs = (
+                    str(offset_to_timezone(js_offset_minutes, datetime(2018, 1, 1, 0, 0, 0))),  # Start/end of year
+                    str(offset_to_timezone(js_offset_minutes, datetime(2018, 7, 1, 0, 0, 0))),  # Mid-year
+                )
+                self.assertEqual(expected_tzs, actual_tzs)
+
+    summer = datetime(2013, 6, 15, 12, 0, 0)
+    winter = datetime(2013, 12, 15, 12, 0, 0)
 
     # Tests for various cities for both regular and daylight saving time
     def test_london_winter(self):

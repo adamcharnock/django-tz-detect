@@ -23,29 +23,23 @@ def offset_to_timezone(offset, now=None):
 
     The ``now`` parameter is generally used for testing only
     """
-    clostest_tz = None
-    clostest_delta = 1440
     now = now or datetime.now()
 
-    # JS offsets are flipped and can be negative, so
-    # unflip and put into range 0 - 1440
-    user_offset = (offset * -1)
-    user_offset = (user_offset + 1440) % 1440
+    # JS offsets are flipped, so unflip.
+    user_offset = -offset
 
-    for tz_name in get_prioritized_timezones():
-        tz = pytz.timezone(tz_name)
+    # Helper: timezone offset in minutes
+    def get_tz_offset(tz):
         try:
-            tz_offset = tz.utcoffset(now).seconds / 60
+            return tz.utcoffset(now).total_seconds() / 60
         except (pytz.NonExistentTimeError, pytz.AmbiguousTimeError):
-            tz_offset = tz.localize(now, is_dst=False).utcoffset().seconds / 60
-        delta = tz_offset - user_offset
-        if abs(delta) < abs(clostest_delta):
-            clostest_tz = tz
-            clostest_delta = delta
-            if delta == 0:
-                break
+            return tz.localize(now, is_dst=False).utcoffset().total_seconds() / 60
 
-    return clostest_tz
+    # Return the timezone with the minimum difference to the user's offset.
+    return min(
+        (pytz.timezone(tz_name) for tz_name in get_prioritized_timezones()),
+        key=lambda tz: abs(get_tz_offset(tz) - user_offset),
+    )
 
 
 def convert_header_name(django_header):
