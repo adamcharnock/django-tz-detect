@@ -58,8 +58,8 @@ class OffsetToTimezoneTestCase(TestCase):
         # Note: These hours are in JavaScript's Date.getTimezoneOffset() convention,
         # so the sign is reversed compared to conventional UTC offset notation.
 
-        (12, ('Asia/Kamchatka', 'Asia/Kamchatka')),  # FIXME: Should be Pacific/Midway
-        (11, ('Antarctica/McMurdo', 'Pacific/Apia')),  # FIXME: Should be Pacific/Midway
+        (12, ('Pacific/Midway', 'Pacific/Midway')),
+        (11, ('Pacific/Midway', 'Pacific/Midway')),
 
         # USA:
         (10, ('America/Adak', 'Pacific/Honolulu')),         # HST, HST
@@ -90,7 +90,7 @@ class OffsetToTimezoneTestCase(TestCase):
         (-11, ('Asia/Magadan', 'Asia/Magadan')),
         (-12, ('Asia/Kamchatka', 'Asia/Kamchatka')),
         (-13, ('Antarctica/McMurdo', 'Pacific/Apia')),
-        (-14, ('America/Adak', 'Pacific/Honolulu')),  # FIXME: Should be Pacific/Apia, Pacific/Kiritimati
+        (-14, ('Pacific/Apia', 'Pacific/Kiritimati')),
     ]
 
     def test_examples(self):
