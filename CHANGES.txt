@@ -4,6 +4,18 @@ This file will be added to as part of each release
 
 ----
 
+Version 0.2.10, Sat 30 Mar 2019
+================================
+
+88b1b24e7c	Dropped support for django < 1.11 (Basil Shubin)
+ffaec9e9ac	Template library load: staticfiles is deprecated in favor of static (Pi Delport)
+bb62c4618c	MIDDLEWARE_CLASSES renamed to MIDDLEWARE in Django 1.10 (Craig Anderson)
+13ba3c504c	Add Tox configuration (Pi Delport)
+b8d8f3760e	Simplify offset_to_timezone implementation to use min() (Pi Delport)
+bdb4993683	Update offset_to_timezone to handle edge cases more accurately (Pi Delport)
+bc0c63020b	Add tests for all hourly UTC offsets, with known mis-detections (Pi Delport)
+
+
 Version 0.2.9, Mon 18 Dec 2017
 ===============================
 
