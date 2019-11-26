@@ -4,6 +4,12 @@ This file will be added to as part of each release
 
 ----
 
+Version 0.3.0, Tue 26 Nov 2019
+===============================
+
+15cbd28775	Set attributes on script tag. (Craig Anderson)
+
+
 Version 0.2.10, Sat 30 Mar 2019
 ================================
 
