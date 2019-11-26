@@ -1,6 +1,6 @@
 {% load static %}
 {% if show %}
-<script type="text/javascript">
+<script type="text/javascript"{% for key, value in script_attrs.items %} {{ key }}="{{ value }}"{% endfor %}>
   var csrf_token = "{{ csrf_token }}";
   var tz_set_endpoint = '{% url "tz_detect__set" %}';
   var csrf_header_name = '{{ csrf_header_name }}';
