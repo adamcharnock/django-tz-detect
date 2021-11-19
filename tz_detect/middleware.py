@@ -1,14 +1,7 @@
-# -*- coding: utf-8 -*-
-
 import pytz
 from pytz.tzinfo import BaseTzInfo
 
 from django.utils import timezone
-
-try:
-    from django.utils import six
-except ImportError:
-    import six
 
 try:
     from django.utils.deprecation import MiddlewareMixin
@@ -29,7 +22,7 @@ class TimezoneMiddleware(MiddlewareMixin):
             # for existing sessions storing BaseTzInfo objects
             if isinstance(tz, BaseTzInfo):
                 timezone.activate(tz)
-            elif isinstance(tz, six.string_types):
+            elif isinstance(tz, str):
                 timezone.activate(pytz.timezone(tz))
             else:
                 timezone.activate(offset_to_timezone(tz))

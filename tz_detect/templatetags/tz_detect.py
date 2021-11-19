@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django import template
 from django.conf import settings
 from ..utils import convert_header_name

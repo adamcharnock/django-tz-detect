@@ -1,10 +1,6 @@
-# -*- coding: utf-8 -*-
-
 import pytz
 from itertools import chain
 from datetime import datetime
-
-from django.utils import timezone
 
 from .defaults import TZ_DETECT_COUNTRIES
 
