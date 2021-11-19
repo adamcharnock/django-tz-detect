@@ -1,71 +1,63 @@
 #!/usr/bin/env python
 
+import codecs
 import os
 import re
-import sys
-import codecs
 import subprocess
+import sys
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 
 def read(*parts):
     file_path = os.path.join(os.path.dirname(__file__), *parts)
-    return codecs.open(file_path, encoding='utf-8').read()
+    return codecs.open(file_path, encoding="utf-8").read()
 
 
 setup(
-    name='django-tz-detect',
-    version=read('VERSION'),
-    license='MIT License',
-
+    name="django-tz-detect",
+    version=read("VERSION"),
+    license="MIT License",
     install_requires=[
-        'django>=1.4.2',
-        'pytz',
-        'six',
-    ],    
+        "django>=1.4.2",
+        "pytz",
+        "six",
+    ],
     requires=[
-        'Django (>=1.4.2)',
+        "Django (>=1.4.2)",
     ],
-    
-    description='Automatic user timezone detection for django',
-    long_description=read('README.rst'),
-
-    author='Adam Charnock',
-    author_email='adam@adamcharnock.com',
-
-    maintainer='Basil Shubin',
-    maintainer_email='basil.shubin@gmail.com',
-
-    url='http://github.com/adamcharnock/django-tz-detect',
-    download_url='https://github.com/adamcharnock/django-tz-detect/zipball/master',
-
-    packages=find_packages(exclude=('example*', '*.tests*')),
+    description="Automatic user timezone detection for django",
+    long_description=read("README.rst"),
+    author="Adam Charnock",
+    author_email="adam@adamcharnock.com",
+    maintainer="Basil Shubin",
+    maintainer_email="basil.shubin@gmail.com",
+    url="http://github.com/adamcharnock/django-tz-detect",
+    download_url="https://github.com/adamcharnock/django-tz-detect/zipball/master",
+    packages=find_packages(exclude=("example*", "*.tests*")),
     include_package_data=True,
-
     tests_require=[
-        'django-setuptest',
-        'coveralls',
+        "django-setuptest",
+        "coveralls",
     ],
-    test_suite='setuptest.setuptest.SetupTestSuite',
-    
+    test_suite="setuptest.setuptest.SetupTestSuite",
     zip_safe=False,
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Environment :: Web Environment',
-        'Framework :: Django',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Topic :: Internet :: WWW/HTTP',
-        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
+        "Development Status :: 5 - Production/Stable",
+        "Environment :: Web Environment",
+        "Framework :: Django",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Topic :: Internet :: WWW/HTTP",
+        "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
     ],
 )

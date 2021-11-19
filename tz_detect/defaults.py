@@ -5,5 +5,4 @@ from django.conf import settings
 # app's most popular countries first.
 # Defaults to top Internet using countries.
 
-TZ_DETECT_COUNTRIES = getattr(settings, 'TZ_DETECT_COUNTRIES', (
-    'CN', 'US', 'IN', 'JP', 'BR', 'RU', 'DE', 'FR', 'GB'))
+TZ_DETECT_COUNTRIES = getattr(settings, "TZ_DETECT_COUNTRIES", ("CN", "US", "IN", "JP", "BR", "RU", "DE", "FR", "GB"))

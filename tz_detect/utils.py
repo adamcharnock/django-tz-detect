@@ -1,6 +1,7 @@
-import pytz
-from itertools import chain
 from datetime import datetime
+from itertools import chain
+
+import pytz
 
 from .defaults import TZ_DETECT_COUNTRIES
 
@@ -44,4 +45,4 @@ def convert_header_name(django_header):
     For example:
     'HTTP_CUSTOM_CSRF' -> 'custom-csrf'
     """
-    return django_header.lower().replace('_', '-').split('http-')[-1]
+    return django_header.lower().replace("_", "-").split("http-")[-1]

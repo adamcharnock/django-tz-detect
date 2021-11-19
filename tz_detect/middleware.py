@@ -1,7 +1,6 @@
 import pytz
-from pytz.tzinfo import BaseTzInfo
-
 from django.utils import timezone
+from pytz.tzinfo import BaseTzInfo
 
 try:
     from django.utils.deprecation import MiddlewareMixin
@@ -12,9 +11,8 @@ from .utils import offset_to_timezone
 
 
 class TimezoneMiddleware(MiddlewareMixin):
-
     def process_request(self, request):
-        tz = request.session.get('detected_tz')
+        tz = request.session.get("detected_tz")
         if tz:
             # ``request.timezone_active`` is used in the template tag
             # to detect if the timezone has been activated
