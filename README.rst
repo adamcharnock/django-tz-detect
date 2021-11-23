@@ -1,12 +1,6 @@
 django-tz-detect
 ================
 
-This app will auto-detect a user's timezone using JavaScript, then
-configure Django's timezone localization system accordingly. As a
-result, dates shown to users will be in their local timezones.
-
-Authored by `Adam Charnock <https://adamcharnock.com/>`_, and some great `contributors <https://github.com/adamcharnock/django-tz-detect/contributors>`_.
-
 .. image:: https://img.shields.io/pypi/v/django-tz-detect.svg
     :target: https://pypi.python.org/pypi/django-tz-detect/
 
@@ -21,6 +15,12 @@ Authored by `Adam Charnock <https://adamcharnock.com/>`_, and some great `contri
 
 .. image:: https://coveralls.io/repos/adamcharnock/django-tz-detect/badge.svg?branch=develop
     :target: https://coveralls.io/r/adamcharnock/django-tz-detect?branch=develop
+
+This app will auto-detect a user's timezone using JavaScript, then
+configure Django's timezone localization system accordingly. As a
+result, dates shown to users will be in their local timezones.
+
+Authored by `Adam Charnock <https://adamcharnock.com/>`_, and some great `contributors <https://github.com/adamcharnock/django-tz-detect/contributors>`_.
 
 How it works
 ------------
