@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.contrib.sessions.middleware import SessionMiddleware
+from django.http import HttpResponse
 from django.test import TestCase
 from django.test.client import RequestFactory
 from pytz.tzinfo import BaseTzInfo
@@ -15,7 +16,8 @@ class ViewTestCase(TestCase):
         self.factory = RequestFactory()
 
     def add_session(self, request):
-        SessionMiddleware().process_request(request)
+        get_response = lambda x: HttpResponse("")
+        SessionMiddleware(get_response).process_request(request)
 
     def test_xhr_valid(self):
         request = self.factory.post("/abc", {"offset": "-60"})
@@ -94,8 +96,16 @@ class OffsetToTimezoneTestCase(TestCase):
             with self.subTest(hour=js_offset_hours):
                 js_offset_minutes = js_offset_hours * 60
                 actual_tzs = (
-                    str(offset_to_timezone(js_offset_minutes, datetime(2018, 1, 1, 0, 0, 0))),  # Start/end of year
-                    str(offset_to_timezone(js_offset_minutes, datetime(2018, 7, 1, 0, 0, 0))),  # Mid-year
+                    str(
+                        offset_to_timezone(
+                            js_offset_minutes, datetime(2018, 1, 1, 0, 0, 0)
+                        )
+                    ),  # Start/end of year
+                    str(
+                        offset_to_timezone(
+                            js_offset_minutes, datetime(2018, 7, 1, 0, 0, 0)
+                        )
+                    ),  # Mid-year
                 )
                 self.assertEqual(expected_tzs, actual_tzs)
 
