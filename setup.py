@@ -16,7 +16,7 @@ def read(*parts):
 
 setup(
     name="django-tz-detect",
-    version=read("VERSION"),
+    version=read("VERSION").strip(),
     license="MIT License",
     install_requires=[
         "django>=2.2",
