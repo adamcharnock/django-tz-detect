@@ -36,11 +36,6 @@ setup(
     download_url="https://github.com/adamcharnock/django-tz-detect/zipball/master",
     packages=find_packages(exclude=("example*", "*.tests*")),
     include_package_data=True,
-    tests_require=[
-        "django-setuptest",
-        "coveralls",
-    ],
-    test_suite="setuptest.setuptest.SetupTestSuite",
     zip_safe=False,
     classifiers=[
         "Development Status :: 5 - Production/Stable",

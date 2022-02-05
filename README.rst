@@ -10,9 +10,6 @@ django-tz-detect
 .. image:: https://img.shields.io/github/license/adamcharnock/django-tz-detect.svg
     :target: https://pypi.python.org/pypi/django-tz-detect/
 
-.. image:: https://img.shields.io/travis/adamcharnock/django-tz-detect.svg
-    :target: https://travis-ci.org/adamcharnock/django-tz-detect/
-
 .. image:: https://coveralls.io/repos/adamcharnock/django-tz-detect/badge.svg?branch=develop
     :target: https://coveralls.io/r/adamcharnock/django-tz-detect?branch=develop
 

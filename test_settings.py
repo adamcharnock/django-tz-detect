@@ -1,5 +1,7 @@
 import os
 
+SECRET_KEY = "h_ekayhzss(0lzsacd5cat7d=pu#51sh3w&uqn&#3#tz26vuq4"
+
 DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
 
 INSTALLED_APPS = [
@@ -18,3 +20,5 @@ MIDDLEWARE_CLASSES = [
 MIDDLEWARE = MIDDLEWARE_CLASSES
 
 SITE_ID = 1
+
+USE_TZ = True
