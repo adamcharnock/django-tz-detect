@@ -2,6 +2,8 @@ version: 2
 updates:
   - package-ecosystem: "pip"
     directory: "/"
+    schedule:
+      interval: "monthly"
     # The requirements files used by tox are designed to test different versions
     # of Django on purpose. Dependabot is noise for this package's use case.
     # Setting the limit of open pull requests to zero is the documented way
