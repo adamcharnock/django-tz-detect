@@ -66,7 +66,7 @@
         xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xmlHttp.setRequestHeader(window.csrf_header_name, window.csrf_token);
         xmlHttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-        xmlHttp.send("offset=" + (new Date()).getTimezoneOffset());
+        xmlHttp.send("offset=" + (new Date()).getTimezoneOffset() + '&timezone=' + Intl.DateTimeFormat().resolvedOptions().timeZone);
     }
 
 }());
