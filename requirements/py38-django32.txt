@@ -1,4 +1,4 @@
 coverage==6.3
-django==3.2.11
+django==3.2.25
 pytest==6.2.5
 pytest-django==4.5.2
