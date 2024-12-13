@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.views.generic import View
 
-
 from .defaults import TZ_SESSION_KEY
+from .utils import is_valid_timezone
 
 
 class SetOffsetView(View):
@@ -10,7 +10,7 @@ class SetOffsetView(View):
 
     def post(self, request, *args, **kwargs):
         timezone = request.POST.get("timezone", None)
-        if timezone:
+        if is_valid_timezone(timezone):
             request.session[TZ_SESSION_KEY] = timezone
         else:
             offset = request.POST.get("offset", None)

@@ -41,6 +41,16 @@ class ViewTestCase(TestCase):
         self.assertIn(TZ_SESSION_KEY, request.session)
         self.assertEqual(request.session[TZ_SESSION_KEY], timezone_name)
 
+    def test_xhr_invalid_timezone_fallback(self):
+        timezone_name = "Etc/GMT 3"
+        request = self.factory.post("/abc", {"timezone": timezone_name, "offset": "-180"})
+        self.add_session(request)
+        response = SetOffsetView.as_view()(request)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(TZ_SESSION_KEY, request.session)
+        self.assertEqual(request.session[TZ_SESSION_KEY], -180)
+
     def test_xhr_bad_method(self):
         request = self.factory.get("/abc")
         self.add_session(request)
