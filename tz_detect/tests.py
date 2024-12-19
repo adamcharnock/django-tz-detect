@@ -73,6 +73,18 @@ class ViewTestCase(TestCase):
         tz_name = get_current_timezone_name()
         self.assertEqual(tz_name, timezone_name)
 
+    def test_middleware_invalid_timezone_string(self):
+        timezone_name = "Etc/GMT 3"
+        request = self.factory.post("/abc", {"timezone": timezone_name})
+        self.add_session(request)
+        request.session[TZ_SESSION_KEY] = timezone_name
+
+        get_response = lambda x: HttpResponse("")
+        tz_name_before_middleware = get_current_timezone_name()
+        TimezoneMiddleware(get_response).process_request(request)
+        tz_name = get_current_timezone_name()
+        self.assertEqual(tz_name, tz_name_before_middleware)
+
 
 class OffsetToTimezoneTestCase(TestCase):
 
