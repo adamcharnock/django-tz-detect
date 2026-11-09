@@ -1,10 +1,11 @@
 from datetime import datetime
 
+import pytz
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import HttpResponse
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.utils.timezone import get_current_timezone_name
+from django.utils.timezone import activate, get_current_timezone_name
 
 from tz_detect.middleware import TimezoneMiddleware
 from tz_detect.templatetags.tz_detect import tz_detect
@@ -89,11 +90,16 @@ class ViewTestCase(TestCase):
         self.add_session(request)
         request.session[TZ_SESSION_KEY] = timezone_name
 
+        default_tz_name = get_current_timezone_name()
+        # Simulate a timezone left active by a previous request on this thread.
+        activate(pytz.timezone("Asia/Tokyo"))
+
         get_response = lambda x: HttpResponse("")
-        tz_name_before_middleware = get_current_timezone_name()
         TimezoneMiddleware(get_response).process_request(request)
-        tz_name = get_current_timezone_name()
-        self.assertEqual(tz_name, tz_name_before_middleware)
+
+        self.assertEqual(get_current_timezone_name(), default_tz_name)
+        self.assertFalse(getattr(request, "timezone_active", False))
+        self.assertNotIn(TZ_SESSION_KEY, request.session)
 
 
 class OffsetToTimezoneTestCase(TestCase):
