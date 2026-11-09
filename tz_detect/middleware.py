@@ -21,7 +21,12 @@ class TimezoneMiddleware(MiddlewareMixin):
                 # ``request.timezone_active`` is used in the template tag
                 # to detect if the timezone has been activated
                 request.timezone_active = True
-
+            else:
+                # The stored value is unusable: reset the thread-local
+                # timezone so it doesn't leak from a previous request, and
+                # drop the value so the browser re-detects it.
+                timezone.deactivate()
+                request.session.pop(TZ_SESSION_KEY, None)
         else:
             timezone.deactivate()
 

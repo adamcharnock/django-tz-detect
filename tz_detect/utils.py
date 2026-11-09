@@ -46,3 +46,15 @@ def convert_header_name(django_header):
     'HTTP_CUSTOM_CSRF' -> 'custom-csrf'
     """
     return django_header.lower().replace("_", "-").split("http-")[-1]
+
+
+def is_valid_timezone(timezone):
+    """Check if a given string can be used as a timezone."""
+    if not timezone:
+        return False
+
+    try:
+        pytz.timezone(timezone)
+        return True
+    except pytz.exceptions.Error:
+        return False
