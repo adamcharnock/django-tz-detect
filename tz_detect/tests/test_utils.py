@@ -1,21 +1,15 @@
+from datetime import UTC
 from datetime import datetime
 
-from django.contrib.sessions.middleware import SessionMiddleware
-from django.http import HttpResponse
 from django.test import TestCase
-from django.test.client import RequestFactory
-from django.utils.timezone import activate, get_current_timezone_name
 
-from tz_detect.middleware import TimezoneMiddleware
-from tz_detect.templatetags.tz_detect import tz_detect
-from tz_detect.utils import convert_header_name, offset_to_timezone
-from tz_detect.defaults import TZ_SESSION_KEY
-from tz_detect.views import SetOffsetView
+from tz_detect.utils import convert_header_name
+from tz_detect.utils import offset_to_timezone
 
 
 class OffsetToTimezoneTestCase(TestCase):
-
-    # Examples offsets (in hours), and the expected timezones for the beginning and middle of the year.
+    # Examples offsets (in hours), and the expected timezones
+    # for the beginning and middle of the year.
     example_offsets_timezones = [
         # Note: These hours are in JavaScript's Date.getTimezoneOffset() convention,
         # so the sign is reversed compared to conventional UTC offset notation.
@@ -55,19 +49,21 @@ class OffsetToTimezoneTestCase(TestCase):
         if not hasattr(self, "subTest"):
             self.skipTest("No subTest support")
 
-        for (js_offset_hours, expected_tzs) in self.example_offsets_timezones:
+        for js_offset_hours, expected_tzs in self.example_offsets_timezones:
             with self.subTest(hour=js_offset_hours):
                 js_offset_minutes = js_offset_hours * 60
                 actual_tzs = (
                     str(
                         offset_to_timezone(
-                            js_offset_minutes, datetime(2018, 1, 1, 0, 0, 0)
-                        )
+                            js_offset_minutes,
+                            datetime(2018, 1, 1, 0, 0, 0, tzinfo=UTC),
+                        ),
                     ),  # Start/end of year
                     str(
                         offset_to_timezone(
-                            js_offset_minutes, datetime(2018, 7, 1, 0, 0, 0)
-                        )
+                            js_offset_minutes,
+                            datetime(2018, 7, 1, 0, 0, 0, tzinfo=UTC),
+                        ),
                     ),  # Mid-year
                 )
                 self.assertEqual(expected_tzs, actual_tzs)

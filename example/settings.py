@@ -9,16 +9,16 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+from pathlib import Path
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "YOUR_SECRET_KEY"
+SECRET_KEY = "YOUR_SECRET_KEY"  # noqa: S105
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.staticfiles",
     "django.contrib.contenttypes",
-] + PROJECT_APPS
+    *PROJECT_APPS,
+]
 
 MIDDLEWARE = (
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -60,7 +61,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            os.path.join(os.path.dirname(__file__), "templates"),
+            Path(__file__).resolve().parent / "templates",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -68,7 +69,6 @@ TEMPLATES = [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
@@ -81,8 +81,8 @@ TEMPLATES = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    }
+        "NAME": BASE_DIR / "db.sqlite3",
+    },
 }
 
 
@@ -94,8 +94,6 @@ LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 
 USE_I18N = True
-
-USE_L10N = True
 
 USE_TZ = True
 

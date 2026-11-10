@@ -1,17 +1,17 @@
-from datetime import datetime, timedelta
-
+from datetime import timedelta
 from zoneinfo import ZoneInfo
+
 from django import forms
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import HttpResponse
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.utils.timezone import activate, deactivate, get_current_timezone_name
+from django.utils.timezone import activate
+from django.utils.timezone import deactivate
+from django.utils.timezone import get_current_timezone_name
 
-from tz_detect.middleware import TimezoneMiddleware
-from tz_detect.templatetags.tz_detect import tz_detect
-from tz_detect.utils import convert_header_name, offset_to_timezone
 from tz_detect.defaults import TZ_SESSION_KEY
+from tz_detect.middleware import TimezoneMiddleware
 from tz_detect.views import SetOffsetView
 
 
@@ -44,7 +44,10 @@ class ViewTestCase(TestCase):
 
     def test_xhr_invalid_timezone_fallback(self):
         timezone_name = "Etc/GMT 3"
-        request = self.factory.post("/abc", {"timezone": timezone_name, "offset": "-180"})
+        request = self.factory.post(
+            "/abc",
+            {"timezone": timezone_name, "offset": "-180"},
+        )
         self.add_session(request)
         response = SetOffsetView.as_view()(request)
 
@@ -115,4 +118,6 @@ class ViewTestCase(TestCase):
         # The active timezone is thread-local; don't leak it into other tests.
         self.addCleanup(deactivate)
 
-        self.assertEqual(forms.DateTimeField().clean("2025-01-15 15:27").utcoffset(), timedelta(hours=-8))
+        assert forms.DateTimeField().clean("2025-01-15 15:27").utcoffset() == timedelta(
+            hours=-8,
+        )

@@ -10,7 +10,7 @@
             return false;
         }
 
-        // If cookieEnabled is null or undefined then assume the browser 
+        // If cookieEnabled is null or undefined then assume the browser
         // doesn't support this flag
         if (cookieEnabled !== false && !cookieEnabled) {
             cookieEnabledSupported = false;
@@ -19,7 +19,7 @@
         }
 
 
-        // try to set a test cookie if we can't see any cookies and we're using 
+        // try to set a test cookie if we can't see any cookies and we're using
         // either a browser that doesn't support navigator.cookieEnabled
         // or IE (which always returns true for navigator.cookieEnabled)
         if (!document.cookie && (!cookieEnabledSupported || /*@cc_on!@*/false)) {
@@ -54,8 +54,8 @@
     };
 
     if(!areCookiesEnabled()) {
-        // If cookies are disabled then storing the timezone in the user's 
-        // session is a hopeless task and will trigger a request for each 
+        // If cookies are disabled then storing the timezone in the user's
+        // session is a hopeless task and will trigger a request for each
         // page load. Therefore, we shouldn't bother.
         return;
     }

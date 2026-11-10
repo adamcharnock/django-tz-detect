@@ -1,10 +1,14 @@
 import contextlib
 import pathlib
+from datetime import UTC
 from datetime import datetime
 from functools import lru_cache
 from importlib import resources
 from itertools import chain
-from zoneinfo import TZPATH, ZoneInfo, ZoneInfoNotFoundError, available_timezones
+from zoneinfo import TZPATH
+from zoneinfo import ZoneInfo
+from zoneinfo import ZoneInfoNotFoundError
+from zoneinfo import available_timezones
 
 from .defaults import TZ_DETECT_COUNTRIES
 
@@ -80,16 +84,19 @@ def get_prioritized_timezones():
 def offset_to_timezone(offset, now=None):
     """Convert a minutes offset (JavaScript-style) into a ``ZoneInfo`` timezone
 
-    The ``now`` parameter is generally used for testing only
+    The ``now`` parameter is generally used for testing only; a naive
+    ``now`` is treated as UTC.
     """
-    now = now or datetime.now()
+    now = now or datetime.now(UTC)
+    if now.tzinfo is None:
+        now = now.replace(tzinfo=UTC)
 
     # JS offsets are flipped, so unflip.
     user_offset = -offset
 
-    # Helper: timezone offset in minutes
+    # Helper: timezone offset in minutes, at the moment ``now``
     def get_tz_offset(tz):
-        return tz.utcoffset(now).total_seconds() / 60
+        return now.astimezone(tz).utcoffset().total_seconds() / 60
 
     def get_zones():
         for tz_name in get_prioritized_timezones():
@@ -122,7 +129,7 @@ def is_valid_timezone(timezone):
 
     try:
         ZoneInfo(timezone)
-        return True
     except (ZoneInfoNotFoundError, ValueError):
         # ValueError: malformed keys, such as "../etc/passwd".
         return False
+    return True

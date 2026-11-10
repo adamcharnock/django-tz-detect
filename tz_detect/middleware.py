@@ -4,13 +4,13 @@ from django.utils import timezone
 
 from .defaults import TZ_SESSION_KEY
 
-
 try:
     from django.utils.deprecation import MiddlewareMixin
 except ImportError:  # Django < 1.10
     MiddlewareMixin = object
 
-from .utils import is_valid_timezone, offset_to_timezone
+from .utils import is_valid_timezone
+from .utils import offset_to_timezone
 
 
 class TimezoneMiddleware(MiddlewareMixin):
@@ -39,4 +39,3 @@ class TimezoneMiddleware(MiddlewareMixin):
             timezone.activate(offset_to_timezone(tz))
 
         return True
-
