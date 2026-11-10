@@ -1,6 +1,12 @@
 Changes
 -------
 
+0.6.1 (2026-11-10)
+~~~~~~~~~~~~~~~~~~
+
+* Fixed ``LoginRequiredMiddleware`` (Django 5.1+) redirecting anonymous
+  visitors' timezone requests to the login page, #79.
+
 0.6.0 (2026-11-10)
 ~~~~~~~~~~~~~~~~~~
 

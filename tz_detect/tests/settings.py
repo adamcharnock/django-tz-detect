@@ -6,11 +6,14 @@ PROJECT_APPS = ["tz_detect.tests", "tz_detect"]
 
 
 INSTALLED_APPS = [
+    "django.contrib.auth",
     "django.contrib.sites",
     "django.contrib.sessions",
     "django.contrib.contenttypes",
     *PROJECT_APPS,
 ]
+
+ROOT_URLCONF = "tz_detect.tests.urls"
 
 MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",

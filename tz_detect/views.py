@@ -1,10 +1,15 @@
+from django.contrib.auth.decorators import login_not_required
 from django.http import HttpResponse
+from django.utils.decorators import method_decorator
 from django.views.generic import View
 
 from .defaults import TZ_SESSION_KEY
 from .utils import is_valid_timezone
 
 
+# The detection script runs for every visitor, including on the login page,
+# so the endpoint must stay public under LoginRequiredMiddleware (#79).
+@method_decorator(login_not_required, name="dispatch")
 class SetOffsetView(View):
     http_method_names = ["post"]
 
