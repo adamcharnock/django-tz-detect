@@ -1,11 +1,28 @@
+# Config for Dependabot updates. See Documentation here:
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
 version: 2
 updates:
-  - package-ecosystem: "pip"
-    directory: "/"
+  # Update GitHub actions in workflows
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    # Every weekday
     schedule:
-      interval: "monthly"
-    # The requirements files used by tox are designed to test different versions
-    # of Django on purpose. Dependabot is noise for this package's use case.
-    # Setting the limit of open pull requests to zero is the documented way
-    # to disable Dependabot.
-    open-pull-requests-limit: 0
+      interval: 'daily'
+    groups:
+      github-actions:
+        patterns:
+          - '*'
+
+  # Enable version updates for Python/uv
+  - package-ecosystem: 'uv'
+    # Look for a `pyproject.toml` in the `root` directory
+    directory: '/'
+    # Every weekday
+    schedule:
+      interval: 'daily'
+    groups:
+      python:
+        update-types:
+          - 'minor'
+          - 'patch'

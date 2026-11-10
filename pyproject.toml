@@ -1,0 +1,169 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [ "setuptools>=77" ]
+
+[project]
+name = "django-tz-detect"
+version = "0.5.0"
+description = "Automatic user timezone detection for django"
+license = "MIT"
+license-files = [ "LICENSE" ]
+maintainers = [ { name = "Basil Shubin", email = "basil.shubin@gmail.com" } ]
+authors = [
+  { name = "Adam Charnock", email = "adam@adamcharnock.com" },
+]
+requires-python = ">=3.11"
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Web Environment",
+  "Framework :: Django",
+  "Framework :: Django :: 5.2",
+  "Framework :: Django :: 6.0",
+  "Framework :: Django :: 6.1",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
+  "Topic :: Internet :: WWW/HTTP",
+  "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+]
+dynamic = [ "readme" ]
+dependencies = [
+  "django>=5.2",
+  "pytz",
+]
+urls.download = "https://github.com/adamcharnock/django-tz-detect/zipball/master"
+urls.homepage = "https://github.com/adamcharnock/django-tz-detect/"
+
+[dependency-groups]
+dev = [
+  "coverage==7.17.0",
+  "django-stubs[compatible-mypy]==6.1.2",
+  "django-upgrade==1.33.0",
+  "mypy==2.4.1",
+  "pre-commit==4.7.0",
+  "pytest==9.2.0",
+  "pytest-django==4.14.0",
+  "pytest-sugar==1.1.1",
+  "ruff==0.17.3",
+]
+
+[tool.setuptools]
+packages.find.include = [ "tz_detect*" ]
+packages.find.exclude = [ "tz_detect.tests*" ]
+package-data.tz_detect = [ "static/**/*", "templates/**/*" ]
+dynamic.readme = { file = [ "README.rst", "CHANGES.rst" ], content-type = "text/x-rst" }
+zip-safe = false
+
+# ==== ruff ====
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+extend-exclude = [
+  "*/migrations/*.py",
+]
+lint.select = [
+  "A",
+  "ASYNC",
+  "B",
+  "BLE",
+  "C4",
+  "C90",
+  "COM",
+  "DJ",
+  "DTZ",
+  "E",
+  "EM",
+  "ERA",
+  "EXE",
+  "F",
+  "FA",
+  "FBT",
+  "FLY",
+  "G",
+  "I",
+  "ICN",
+  "INP",
+  "INT",
+  "ISC",
+  "N",
+  "PD",
+  "PERF",
+  "PGH",
+  "PIE",
+  "PL",
+  "PT",
+  "PTH",
+  "PYI",
+  "Q",
+  "RET",
+  "RSE",
+  "RUF",
+  "S",
+  "SIM",
+  "SLF",
+  "SLOT",
+  "T10",
+  "T20",
+  "TC",
+  "TID",
+  "TRY",
+  "UP",
+  "W",
+  "YTT",
+]
+lint.ignore = [
+  "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
+  "S101",   # Use of assert detected https://docs.astral.sh/ruff/rules/assert/
+  "SIM102", # sometimes it's better to nest
+  # of types for comparison.
+  # Deactivated because it can make the code slow:
+  # https://github.com/astral-sh/ruff/issues/7871
+]
+lint.isort.default-section = "third-party"
+lint.isort.force-single-line = true
+lint.isort.known-first-party = [ "tz_detect" ]
+lint.isort.section-order = [ "future", "standard-library", "django", "third-party", "first-party", "local-folder" ]
+lint.isort.sections.django = [ "django" ]
+
+# ==== pyproject-fmt ====
+[tool.pyproject-fmt]
+keep_full_version = true
+
+# ==== mypy ====
+[tool.mypy]
+ignore_missing_imports = true
+python_version = "3.15"
+check_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+plugins = [
+  "mypy_django_plugin.main",
+]
+warn_unused_configs = true
+overrides = [
+  # Django migrations should not produce any errors:
+  { module = "*.migrations.*", ignore_errors = true },
+]
+
+[tool.django-stubs]
+django_settings_module = "tz_detect.tests.settings"
+
+[tool.pytest]
+ini_options.minversion = "6.0"
+ini_options.python_files = [
+  "test_*.py",
+  "tests.py",
+]
+# ==== pytest ====
+ini_options.addopts = [ "--ds=tz_detect.tests.settings", "--reuse-db", "--import-mode=importlib" ]
+
+# ==== Coverage ====
+[tool.coverage]
+run.source = [ "tz_detect" ]
+run.omit = [ "*/migrations/*", "*/tests/*" ]
+run.relative_files = true
