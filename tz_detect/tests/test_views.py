@@ -1,8 +1,10 @@
 from datetime import timedelta
 from http import HTTPStatus
+from types import SimpleNamespace
 from zoneinfo import ZoneInfo
 
 from django import forms
+from django.contrib.auth.middleware import LoginRequiredMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import HttpResponse
 from django.test import TestCase
@@ -123,3 +125,14 @@ class ViewTestCase(TestCase):
         assert forms.DateTimeField().clean("2025-01-15 15:27").utcoffset() == timedelta(
             hours=-8,
         )
+
+    def test_view_login_not_required(self):
+        # https://github.com/adamcharnock/django-tz-detect/issues/79
+        # LoginRequiredMiddleware (Django 5.1+) redirected anonymous visitors'
+        # POSTs to the login page, so their timezone was never stored.
+        request = self.factory.post("/abc", {"timezone": "Europe/Amsterdam"})
+        request.user = SimpleNamespace(is_authenticated=False)
+
+        middleware = LoginRequiredMiddleware(get_response)
+        # None means the middleware lets the request through to the view.
+        assert middleware.process_view(request, SetOffsetView.as_view(), (), {}) is None
