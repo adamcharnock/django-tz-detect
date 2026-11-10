@@ -1,23 +1,35 @@
 # Setup
 
-django-tz-detect uses `tox` to run tests.
+django-tz-detect uses `uv` and `tox` to run tests.
 The following commands show what you need to get started.
 
 ```
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements/dev.txt
-tox --py current
+uv sync --group dev
+uv run pre-commit install
+uv run pytest
+```
+
+To run the full test matrix (every supported Python and Django version):
+
+```
+uv tool install tox --with tox-uv --with tox-gh
+tox
+```
+
+# JavaScript
+
+In production (`DEBUG = False`) the `detector.html` template loads the
+minified `tzdetect.min.js`, not `tzdetect.js`. After changing
+`tzdetect.js`, rebuild the minified file and commit both:
+
+```
+cd tz_detect/static/tz_detect/js
+npx --yes terser@5.36.0 tzdetect.js --compress --mangle -o tzdetect.min.js
 ```
 
 # Release checklist
 
 These are notes for how to make a release.
-First, make sure release tools are installed.
-
-```
-pip install -r requirements/dev.txt
-```
 
 * Update `VERSION`
 * Update `CHANGES.txt`

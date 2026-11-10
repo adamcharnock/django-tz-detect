@@ -1,35 +1,43 @@
 django-tz-detect
 ================
 
-.. image:: https://img.shields.io/pypi/v/django-tz-detect.svg
+.. image:: https://badge.fury.io/py/django-tz-detect.svg
+    :target: https://badge.fury.io/py/django-tz-detect
+
+.. image:: https://img.shields.io/pypi/pyversions/django-tz-detect.svg
     :target: https://pypi.python.org/pypi/django-tz-detect/
 
-.. image:: https://img.shields.io/pypi/dm/django-tz-detect.svg
+.. image:: https://img.shields.io/pypi/djversions/django-tz-detect.svg
     :target: https://pypi.python.org/pypi/django-tz-detect/
 
-.. image:: https://img.shields.io/github/license/adamcharnock/django-tz-detect.svg
-    :target: https://pypi.python.org/pypi/django-tz-detect/
-
-.. image:: https://coveralls.io/repos/adamcharnock/django-tz-detect/badge.svg?branch=develop
-    :target: https://coveralls.io/r/adamcharnock/django-tz-detect?branch=develop
+.. image:: https://github.com/adamcharnock/django-tz-detect/actions/workflows/test.yml/badge.svg
+    :target: https://github.com/adamcharnock/django-tz-detect/actions/workflows/test.yml
 
 This app will auto-detect a user's timezone using JavaScript, then
 configure Django's timezone localization system accordingly. As a
 result, dates shown to users will be in their local timezones.
 
-Authored by `Adam Charnock <https://adamcharnock.com/>`_, and some great `contributors <https://github.com/adamcharnock/django-tz-detect/contributors>`_.
+Authored by `Adam Charnock <https://adamcharnock.com/>`_ (who is available for freelance/contract work), and some great `contributors <https://github.com/adamcharnock/django-tz-detect/contributors>`_.
 
 How it works
 ------------
 
 On the first page view you should find that ``tz_detect`` places a
 piece of asynchronous JavaScript code into your page using the
-template tag you inserted.  The script will obtain the user's GMT
-offset using ``getTimezoneOffset``, and post it back to Django. The
-offset is stored in the user's session and Django's timezone awareness
-is configured in the middleware.
+template tag you inserted. The script reads the browser's timezone
+name (such as ``Europe/Amsterdam``) using
+``Intl.DateTimeFormat().resolvedOptions().timeZone``, along with the
+UTC offset from ``getTimezoneOffset``, and posts both back to Django.
 
-The JavaScript will not be displayed in future requests.
+The timezone name is stored in the user's session. If the server doesn't
+recognise the name, the offset is stored instead, and the middleware
+picks the closest matching timezone (see ``TZ_DETECT_COUNTRIES`` below).
+On each request, the middleware activates the stored timezone in
+Django's timezone support.
+
+The JavaScript will not be displayed in future requests. If the stored
+timezone becomes unusable, it is dropped from the session and detected
+again on the next page view.
 
 Installation
 ------------
@@ -49,7 +57,7 @@ Installation
        )
 
 3. Be sure you have the ``django.template.context_processors.request`` processor
-   
+
    .. code-block:: python
 
        TEMPLATES = [
@@ -83,18 +91,13 @@ Installation
 
    .. code-block:: python
 
-       import django
-
        MIDDLEWARE += (
            'tz_detect.middleware.TimezoneMiddleware',
        )
 
-       if django.VERSION < (1, 10):
-           MIDDLEWARE_CLASSES += (
-               'tz_detect.middleware.TimezoneMiddleware',
-           )
+7. (Optional) Configure optional settings
 
-7. (Optional) Configure the countries in which your app will be most commonly used:
+   Set the countries in which your app will be most commonly used:
 
    .. code-block:: python
 
@@ -104,19 +107,25 @@ Installation
        # Defaults to the top Internet using countries.
        TZ_DETECT_COUNTRIES = ('CN', 'US', 'IN', 'JP', 'BR', 'RU', 'DE', 'FR', 'GB')
 
+   Set the session key that will be used to store the detected timezone
+
+   .. code-block:: python
+
+       # Session key to use, defaults to "detected_tz"
+       TZ_SESSION_KEY = "my-session-key"
+
 Please see ``example`` application. This application is used to manually
 test the functionalities of this package. This also serves as a good
 example.
 
-You need only Django 1.8 or above to run that. It might run on older
-versions but that is not tested.
+Requires Python 3.11+ and Django 5.2+.
 
 Caveats
 -------
 
 - Django's timezone awareness will not be available on the first page view
 - This method requires JavaScript
-- Timezone detection is done entirely from the user's GMT offset, not from their location
+- Timezone detection uses the browser's timezone setting (its timezone name, or the UTC offset as a fallback), not the user's location
 
 Future expansion
 ----------------
