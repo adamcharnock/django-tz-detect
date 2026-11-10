@@ -12,6 +12,10 @@ Unreleased
   to the server as ``Etc/GMT 3``, #70, #75.
 * Fixed an invalid or unknown timezone in the session raising
   ``UnknownTimeZoneError`` on every request, #70, #76.
+* Replaced ``pytz`` with Python's ``zoneinfo``, and dropped the ``pytz``
+  dependency. On Django 5+, ``pytz`` zones shifted every datetime saved
+  through forms by the zone's LMT offset (e.g. ``-07:53`` instead of
+  ``-07:00`` for ``America/Los_Angeles``), #73, #80.
 
 0.5.0
 ~~~~~

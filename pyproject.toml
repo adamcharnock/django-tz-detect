@@ -35,7 +35,6 @@ classifiers = [
 dynamic = [ "readme" ]
 dependencies = [
   "django>=5.2",
-  "pytz",
 ]
 urls.download = "https://github.com/adamcharnock/django-tz-detect/zipball/master"
 urls.homepage = "https://github.com/adamcharnock/django-tz-detect/"

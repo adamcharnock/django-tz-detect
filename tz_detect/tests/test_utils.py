@@ -1,6 +1,5 @@
 from datetime import datetime
 
-import pytz
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import HttpResponse
 from django.test import TestCase

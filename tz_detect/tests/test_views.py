@@ -1,6 +1,6 @@
 from datetime import datetime
 
-import pytz
+from zoneinfo import ZoneInfo
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import HttpResponse
 from django.test import TestCase
@@ -91,7 +91,7 @@ class ViewTestCase(TestCase):
 
         default_tz_name = get_current_timezone_name()
         # Simulate a timezone left active by a previous request on this thread.
-        activate(pytz.timezone("Asia/Tokyo"))
+        activate(ZoneInfo("Asia/Tokyo"))
 
         get_response = lambda x: HttpResponse("")
         TimezoneMiddleware(get_response).process_request(request)

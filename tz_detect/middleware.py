@@ -1,6 +1,6 @@
-import pytz
+from zoneinfo import ZoneInfo
+
 from django.utils import timezone
-from pytz.tzinfo import BaseTzInfo
 
 from .defaults import TZ_SESSION_KEY
 
@@ -10,7 +10,7 @@ try:
 except ImportError:  # Django < 1.10
     MiddlewareMixin = object
 
-from .utils import offset_to_timezone
+from .utils import is_valid_timezone, offset_to_timezone
 
 
 class TimezoneMiddleware(MiddlewareMixin):
@@ -31,14 +31,10 @@ class TimezoneMiddleware(MiddlewareMixin):
             timezone.deactivate()
 
     def _try_to_set_timezone(self, tz):
-        # for existing sessions storing BaseTzInfo objects
-        if isinstance(tz, BaseTzInfo):
-            timezone.activate(tz)
-        elif isinstance(tz, str):
-            try:
-                timezone.activate(pytz.timezone(tz))
-            except pytz.exceptions.UnknownTimeZoneError:
+        if isinstance(tz, str):
+            if not is_valid_timezone(tz):
                 return False
+            timezone.activate(ZoneInfo(tz))
         else:
             timezone.activate(offset_to_timezone(tz))
 
