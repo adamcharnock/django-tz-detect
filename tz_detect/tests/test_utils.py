@@ -66,36 +66,36 @@ class OffsetToTimezoneTestCase(TestCase):
                         ),
                     ),  # Mid-year
                 )
-                self.assertEqual(expected_tzs, actual_tzs)
+                assert expected_tzs == actual_tzs
 
-    summer = datetime(2013, 6, 15, 12, 0, 0)
-    winter = datetime(2013, 12, 15, 12, 0, 0)
+    summer = datetime(2013, 6, 15, 12, 0, 0, tzinfo=UTC)
+    winter = datetime(2013, 12, 15, 12, 0, 0, tzinfo=UTC)
 
     # Tests for various cities for both regular and daylight saving time
     def test_london_winter(self):
         tz = offset_to_timezone(0, now=self.winter)
-        self.assertEqual(str(tz), "Europe/London")
+        assert str(tz) == "Europe/London"
 
     def test_london_summer(self):
         tz = offset_to_timezone(-60, now=self.summer)
-        self.assertEqual(str(tz), "Europe/London")
+        assert str(tz) == "Europe/London"
 
     def test_new_york_winter(self):
         tz = offset_to_timezone(5 * 60, now=self.winter)
-        self.assertEqual(str(tz), "America/New_York")
+        assert str(tz) == "America/New_York"
 
     def test_new_york_summer(self):
         tz = offset_to_timezone(4 * 60, now=self.summer)
-        self.assertEqual(str(tz), "America/New_York")
+        assert str(tz) == "America/New_York"
 
     def test_tokyo(self):
         tz = offset_to_timezone(-9 * 60, now=self.summer)
-        self.assertEqual(str(tz), "Asia/Tokyo")
+        assert str(tz) == "Asia/Tokyo"
 
     def test_fuzzy(self):
         """Test the fuzzy matching of timezones"""
         tz = offset_to_timezone(-10, now=self.winter)
-        self.assertEqual(str(tz), "Europe/London")
+        assert str(tz) == "Europe/London"
 
 
 class ConvertHeaderNameTestCase(TestCase):
@@ -108,14 +108,14 @@ class ConvertHeaderNameTestCase(TestCase):
         # default value for settings.CSRF_HEADER_NAME
         setting = "HTTP_X_CSRFTOKEN"
         result = convert_header_name(setting)
-        self.assertEqual(result, "x-csrftoken")
+        assert result == "x-csrftoken"
 
     def test_custom_header_name(self):
         setting = "HTTP_X_XSRF_TOKEN"
         result = convert_header_name(setting)
-        self.assertEqual(result, "x-xsrf-token")
+        assert result == "x-xsrf-token"
 
     def test_custom_header_without_http_prefix(self):
         setting = "X_XSRF_TOKEN"
         result = convert_header_name(setting)
-        self.assertEqual(result, "x-xsrf-token")
+        assert result == "x-xsrf-token"
