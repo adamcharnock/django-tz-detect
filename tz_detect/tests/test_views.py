@@ -1,11 +1,12 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from zoneinfo import ZoneInfo
+from django import forms
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import HttpResponse
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.utils.timezone import activate, get_current_timezone_name
+from django.utils.timezone import activate, deactivate, get_current_timezone_name
 
 from tz_detect.middleware import TimezoneMiddleware
 from tz_detect.templatetags.tz_detect import tz_detect
@@ -99,3 +100,19 @@ class ViewTestCase(TestCase):
         self.assertEqual(get_current_timezone_name(), default_tz_name)
         self.assertFalse(getattr(request, "timezone_active", False))
         self.assertNotIn(TZ_SESSION_KEY, request.session)
+
+    def test_middleware_form_datetime_offset(self):
+        # https://github.com/adamcharnock/django-tz-detect/issues/80
+        # With pytz zones, Django 5+ attached the zone's LMT offset (-07:53
+        # for America/Los_Angeles) to datetimes submitted through forms.
+        timezone_name = "America/Los_Angeles"
+        request = self.factory.get("/abc")
+        self.add_session(request)
+        request.session[TZ_SESSION_KEY] = timezone_name
+
+        get_response = lambda x: HttpResponse("")
+        TimezoneMiddleware(get_response).process_request(request)
+        # The active timezone is thread-local; don't leak it into other tests.
+        self.addCleanup(deactivate)
+
+        self.assertEqual(forms.DateTimeField().clean("2025-01-15 15:27").utcoffset(), timedelta(hours=-8))
