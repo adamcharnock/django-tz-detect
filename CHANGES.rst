@@ -1,8 +1,8 @@
 Changes
 -------
 
-Unreleased
-~~~~~~~~~~
+0.6.0 (2026-11-10)
+~~~~~~~~~~~~~~~~~~
 
 * Now requires Python 3.11+ and Django 5.2+.
 * Migrated packaging to ``pyproject.toml``, and added pre-commit hooks and
