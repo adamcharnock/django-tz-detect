@@ -1,19 +1,13 @@
 django-tz-detect
 ================
 
-.. image:: https://img.shields.io/pypi/v/django-tz-detect.svg
-    :target: https://pypi.python.org/pypi/django-tz-detect/
-
-.. image:: https://img.shields.io/pypi/dm/django-tz-detect.svg
-    :target: https://pypi.python.org/pypi/django-tz-detect/
+.. image:: https://badge.fury.io/py/django-tz-detect.svg
+    :target: https://badge.fury.io/py/django-tz-detect
 
 .. image:: https://img.shields.io/pypi/pyversions/django-tz-detect.svg
     :target: https://pypi.python.org/pypi/django-tz-detect/
 
 .. image:: https://img.shields.io/pypi/djversions/django-tz-detect.svg
-    :target: https://pypi.python.org/pypi/django-tz-detect/
-
-.. image:: https://img.shields.io/github/license/adamcharnock/django-tz-detect.svg
     :target: https://pypi.python.org/pypi/django-tz-detect/
 
 .. image:: https://github.com/adamcharnock/django-tz-detect/actions/workflows/test.yml/badge.svg
