@@ -4,7 +4,7 @@ requires = [ "hatch-fancy-pypi-readme>=24.1", "hatchling>=1.27" ]
 
 [project]
 name = "django-tz-detect"
-version = "0.6.1"
+version = "0.7.0"
 description = "Automatic user timezone detection for django"
 license = "MIT"
 license-files = [ "LICENSE" ]
