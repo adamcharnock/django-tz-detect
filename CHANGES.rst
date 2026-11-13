@@ -1,6 +1,11 @@
 Changes
 -------
 
+0.7.1 (2026-11-13)
+~~~~~~~~~~~~~~~~~~
+
+* There's nothing to see here. Move along. Keep moving.
+
 0.7.0 (2026-11-13)
 ~~~~~~~~~~~~~~~~~~
 
