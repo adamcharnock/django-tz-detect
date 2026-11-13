@@ -95,7 +95,7 @@ def test_view_bad_method(make_request):
 
 
 def test_view_login_not_required(rf, url_set):
-    # https://github.com/adamcharnock/django-tz-detect/issues/79
+    # https://github.com/bashu/django-tz-detect/issues/79
     # LoginRequiredMiddleware (Django 5.1+) redirected anonymous visitors'
     # POSTs to the login page, so their timezone was never stored.
     request = rf.post(url_set, {"timezone": "Europe/Amsterdam"})
@@ -132,7 +132,7 @@ def test_middleware_invalid_timezone_string(make_request):
 
 
 def test_middleware_form_datetime_offset(make_request):
-    # https://github.com/adamcharnock/django-tz-detect/issues/80
+    # https://github.com/bashu/django-tz-detect/issues/80
     # With pytz zones, Django 5+ attached the zone's LMT offset (-07:53
     # for America/Los_Angeles) to datetimes submitted through forms.
     request = make_request(method="get")

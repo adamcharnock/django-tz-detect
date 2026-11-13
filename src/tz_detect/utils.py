@@ -1,10 +1,13 @@
 import contextlib
 import pathlib
+from collections.abc import Iterable
+from collections.abc import Iterator
 from datetime import UTC
 from datetime import datetime
 from functools import lru_cache
 from importlib import resources
 from itertools import chain
+from typing import TYPE_CHECKING
 from zoneinfo import TZPATH
 from zoneinfo import ZoneInfo
 from zoneinfo import ZoneInfoNotFoundError
@@ -12,9 +15,12 @@ from zoneinfo import available_timezones
 
 from .defaults import TZ_DETECT_COUNTRIES
 
+if TYPE_CHECKING:
+    from importlib.resources.abc import Traversable
+
 
 @lru_cache(maxsize=1)
-def country_timezones():
+def country_timezones() -> dict[str, list[str]]:
     """Map ISO 3166 country codes to the timezone names used in that country,
     in place of ``pytz.country_timezones``.
 
@@ -25,11 +31,11 @@ def country_timezones():
 
     Cached (per-process) since it reads ``zone.tab`` from disk.
     """
-    tzpath = [pathlib.Path(p) for p in TZPATH]
+    tzpath: list[Traversable] = [pathlib.Path(p) for p in TZPATH]
     with contextlib.suppress(ModuleNotFoundError):
         tzpath.append(resources.files("tzdata").joinpath("zoneinfo"))
 
-    zones = {}
+    zones: dict[str, list[str]] = {}
     for path in tzpath:
         try:
             zone_file = path.joinpath("zone.tab").open("r", encoding="utf-8")
@@ -48,7 +54,7 @@ def country_timezones():
 
 
 @lru_cache(maxsize=1)
-def common_timezones():
+def common_timezones() -> list[str]:
     """A subset of ``zoneinfo.available_timezones()``, used in place of
     ``pytz.common_timezones``.
 
@@ -71,8 +77,8 @@ def common_timezones():
     return sorted(names)
 
 
-def get_prioritized_timezones():
-    def tz_gen():
+def get_prioritized_timezones() -> Iterator[str]:
+    def tz_gen() -> Iterator[Iterable[str]]:
         for c in TZ_DETECT_COUNTRIES:
             # pytz accepted lowercase codes too, e.g. "ch".
             yield country_timezones()[c.upper()]
@@ -81,7 +87,7 @@ def get_prioritized_timezones():
     return chain.from_iterable(tz_gen())
 
 
-def offset_to_timezone(offset, now=None):
+def offset_to_timezone(offset: int, now: datetime | None = None) -> ZoneInfo:
     """Convert a minutes offset (JavaScript-style) into a ``ZoneInfo`` timezone
 
     The ``now`` parameter is generally used for testing only; a naive
@@ -95,10 +101,12 @@ def offset_to_timezone(offset, now=None):
     user_offset = -offset
 
     # Helper: timezone offset in minutes, at the moment ``now``
-    def get_tz_offset(tz):
-        return now.astimezone(tz).utcoffset().total_seconds() / 60
+    def get_tz_offset(tz: ZoneInfo) -> float:
+        utcoffset = now.astimezone(tz).utcoffset()
+        assert utcoffset is not None  # An aware datetime always has an offset.
+        return utcoffset.total_seconds() / 60
 
-    def get_zones():
+    def get_zones() -> Iterator[ZoneInfo]:
         for tz_name in get_prioritized_timezones():
             # Skip any name the timezone database can't load.
             try:
@@ -113,7 +121,7 @@ def offset_to_timezone(offset, now=None):
     )
 
 
-def convert_header_name(django_header):
+def convert_header_name(django_header: str) -> str:
     """Converts header name from django settings to real header name.
 
     For example:
@@ -122,7 +130,7 @@ def convert_header_name(django_header):
     return django_header.lower().replace("_", "-").split("http-")[-1]
 
 
-def is_valid_timezone(timezone):
+def is_valid_timezone(timezone: str | None) -> bool:
     """Check if a given string can be used as a timezone."""
     if not timezone:
         return False

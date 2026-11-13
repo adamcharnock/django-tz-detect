@@ -1,4 +1,7 @@
+from typing import Any
+
 from django.contrib.auth.decorators import login_not_required
+from django.http import HttpRequest
 from django.http import HttpResponse
 from django.utils.decorators import method_decorator
 from django.views.generic import View
@@ -13,17 +16,16 @@ from .utils import is_valid_timezone
 class SetOffsetView(View):
     http_method_names = ["post"]
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         timezone = request.POST.get("timezone", None)
         if is_valid_timezone(timezone):
             request.session[TZ_SESSION_KEY] = timezone
         else:
-            offset = request.POST.get("offset", None)
-            if not offset:
+            if not request.POST.get("offset", None):
                 return HttpResponse("No 'offset' parameter provided", status=400)
 
             try:
-                offset = int(offset)
+                offset = int(request.POST["offset"])
             except ValueError:
                 return HttpResponse("Invalid 'offset' value provided", status=400)
 

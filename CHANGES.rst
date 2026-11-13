@@ -1,6 +1,17 @@
 Changes
 -------
 
+0.7.2 (2026-11-13)
+~~~~~~~~~~~~~~~~~~
+
+* Added type hints and a ``py.typed`` marker, so type checkers such as mypy
+  check code that uses the package.
+
+0.7.1 (2026-11-13)
+~~~~~~~~~~~~~~~~~~
+
+* There's nothing to see here. Move along. Keep moving.
+
 0.7.0 (2026-11-13)
 ~~~~~~~~~~~~~~~~~~
 

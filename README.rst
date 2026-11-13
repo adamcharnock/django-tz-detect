@@ -10,8 +10,8 @@ django-tz-detect
 .. image:: https://img.shields.io/pypi/djversions/django-tz-detect.svg
     :target: https://pypi.python.org/pypi/django-tz-detect/
 
-.. image:: https://github.com/adamcharnock/django-tz-detect/actions/workflows/test.yml/badge.svg
-    :target: https://github.com/adamcharnock/django-tz-detect/actions/workflows/test.yml
+.. image:: https://github.com/bashu/django-tz-detect/actions/workflows/test.yml/badge.svg
+    :target: https://github.com/bashu/django-tz-detect/actions/workflows/test.yml
 
 This app will auto-detect a user's timezone using JavaScript, then
 configure Django's timezone localization system accordingly. As a

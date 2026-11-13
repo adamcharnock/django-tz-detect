@@ -8,7 +8,7 @@ from tz_detect.templatetags.tz_detect import tz_detect
 
 
 def test_no_request_in_context():
-    result = tz_detect({})
+    result = tz_detect(Context())
 
     assert result["show"] is True
 
