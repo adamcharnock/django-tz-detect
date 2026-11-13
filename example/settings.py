@@ -68,6 +68,9 @@ SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 TIME_ZONE = "UTC"
 
+# django-tz-detect: reload the first page once the timezone is detected.
+TZ_DETECT_RELOAD = True
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/stable/howto/static-files/
 

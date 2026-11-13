@@ -142,6 +142,25 @@ Installation
        # Session key to use, defaults to "detected_tz"
        TZ_SESSION_KEY = "my-session-key"
 
+   Reload the page once the timezone is detected, so the first page view
+   is shown in the visitor's timezone too:
+
+   .. code-block:: python
+
+       # Defaults to False
+       TZ_DETECT_RELOAD = True
+
+   The page reloads only after the timezone is stored, only on GET requests,
+   and only once, even if the browser keeps rejecting the session cookie.
+   To keep a page from reloading, e.g. while the visitor may already be typing
+   into a form, cancel the event:
+
+   .. code-block:: javascript
+
+       document.addEventListener("tzdetect:set", function (event) {
+         event.preventDefault();
+       });
+
 Please see ``example`` application. This application is used to manually
 test the functionalities of this package. This also serves as a good
 example.

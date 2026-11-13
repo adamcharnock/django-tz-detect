@@ -14,3 +14,8 @@ TZ_DETECT_COUNTRIES = getattr(
 
 # Session key to use to store the detected timezone
 TZ_SESSION_KEY = getattr(settings, "TZ_SESSION_KEY", "detected_tz")
+
+
+# Reload the page once the detected timezone is stored, so the first
+# page view is shown in the visitor's timezone too.
+TZ_DETECT_RELOAD = getattr(settings, "TZ_DETECT_RELOAD", False)

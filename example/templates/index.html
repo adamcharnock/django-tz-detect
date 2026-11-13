@@ -8,29 +8,6 @@
   </head>
   <body>
     It is {% now "jS F Y H:i" %}
-    {% if request.method == "GET" %}
-      <script>
-        // Reload once the detected timezone is stored, so the first page view shows local time too.
-        document.addEventListener("tzdetect:set", () => {
-          try {
-            const reloadedAt = Number(sessionStorage.getItem("tzdetect:reloaded"));
-            // This page load was started by our own reload, yet the timezone had to be
-            // detected again: the session cookie doesn't stick, so stop reloading this tab.
-            if (performance.timeOrigin - reloadedAt < 5000) {
-              sessionStorage.setItem("tzdetect:failed", "1");
-            }
-            if (sessionStorage.getItem("tzdetect:failed")) {
-              return;
-            }
-            sessionStorage.setItem("tzdetect:reloaded", String(Date.now()));
-          } catch {
-            // sessionStorage unavailable: don't risk a reload loop.
-            return;
-          }
-          window.location.reload();
-        });
-      </script>
-    {% endif %}
     {% tz_detect %}
   </body>
 </html>
