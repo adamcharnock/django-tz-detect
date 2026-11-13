@@ -1,8 +1,13 @@
+<!DOCTYPE html>
+{% load i18n %}
 {% load tz_detect %}
-<html>
-    <head></head>
-    <body>
-      It is {% now "jS F Y H:i" %}
-      {% tz_detect %}
-    </body>
+
+<html lang="{{ LANGUAGE_CODE }}">
+  <head>
+    <title>django-tz-detect</title>
+  </head>
+  <body>
+    It is {% now "jS F Y H:i" %}
+    {% tz_detect %}
+  </body>
 </html>

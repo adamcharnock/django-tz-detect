@@ -1,0 +1,11 @@
+{% load static %}
+
+{% if show %}
+  <script src="{% if debug %}{% static 'tz_detect/js/tzdetect.js' %}{% else %}{% static 'tz_detect/js/tzdetect.min.js' %}{% endif %}"
+          async
+          data-endpoint="{% url 'tz_detect__set' %}"
+          data-csrf-header="{{ csrf_header_name }}"
+          data-csrf-token="{{ csrf_token }}"
+          {% if reload %}data-reload{% endif %}
+          {% for key, value in script_attrs.items %} {{ key }}="{{ value }}"{% endfor %}></script>
+{% endif %}

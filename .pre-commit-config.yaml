@@ -26,11 +26,11 @@ repos:
     rev: 1.33.0
     hooks:
       - id: django-upgrade
-        args: ['--target-version', '5.2']
+        args: ['--target-version', '6.0']
 
   # Run the Ruff linter.
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.17.3
+    rev: v0.17.4
     hooks:
       # Linter
       - id: ruff-check
@@ -39,9 +39,15 @@ repos:
       - id: ruff-format
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.30.3
+    rev: v2.30.6
     hooks:
       - id: pyproject-fmt
+
+  - repo: https://github.com/djlint/djLint
+    rev: v1.49.10
+    hooks:
+      - id: djlint-reformat-django
+      - id: djlint-django
 
 # sets up .pre-commit-ci.yaml to ensure pre-commit dependencies stay up to date
 ci:

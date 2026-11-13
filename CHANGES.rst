@@ -1,6 +1,28 @@
 Changes
 -------
 
+0.7.0 (2026-11-13)
+~~~~~~~~~~~~~~~~~~
+
+* Switched packaging from setuptools to ``hatchling`` with a ``src`` layout.
+* Moved tests out of the package into ``tests/`` and ported them to pytest.
+* Added djLint pre-commit hooks for templates.
+* Added a ``tzdetect:set`` event, fired on ``document`` once the detected
+  timezone is stored, so pages can refresh dates without a reload, #72.
+* Added the ``TZ_DETECT_RELOAD`` setting to reload the page once the timezone
+  is detected, so the first page view is shown in the visitor's timezone
+  too, #72.
+* Modernized ``tzdetect.js``: it now uses ``fetch()`` and dropped support
+  for Internet Explorer. It no longer leaks the ``areCookiesEnabled``
+  global function.
+* Backward incompatible: ``{% tz_detect %}`` now renders a plain
+  ``<script src async>`` tag that passes its settings in ``data-``
+  attributes, instead of an inline script. The ``csrf_token``,
+  ``tz_set_endpoint`` and ``csrf_header_name`` globals are gone, and
+  overridden ``tz_detect/detector.html`` templates need updating. Pages no
+  longer need ``'unsafe-inline'`` in their Content Security Policy, and
+  attributes given to the tag (such as ``nonce``) now land on that script.
+
 0.6.1 (2026-11-10)
 ~~~~~~~~~~~~~~~~~~
 

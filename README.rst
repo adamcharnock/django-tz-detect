@@ -17,7 +17,8 @@ This app will auto-detect a user's timezone using JavaScript, then
 configure Django's timezone localization system accordingly. As a
 result, dates shown to users will be in their local timezones.
 
-Authored by `Adam Charnock <https://adamcharnock.com/>`_ (who is available for freelance/contract work), and some great `contributors <https://github.com/adamcharnock/django-tz-detect/contributors>`_.
+Maintained by `Basil Shubin <https://github.com/bashu/>`_, and some great
+`contributors <https://github.com/bashu/django-tz-detect/contributors>`_.
 
 How it works
 ------------
@@ -38,6 +39,33 @@ Django's timezone support.
 The JavaScript will not be displayed in future requests. If the stored
 timezone becomes unusable, it is dropped from the session and detected
 again on the next page view.
+
+Once the timezone is stored, the script fires a ``tzdetect:set`` event on
+``document``, with ``timezone`` and ``offset`` in ``event.detail``. Use it
+to update the parts of the first page that show dates and times, for
+example with `htmx <https://htmx.org/>`_:
+
+.. code-block:: html
+
+    <div hx-get="/bookings/" hx-trigger="tzdetect:set from:document">
+      ...
+    </div>
+
+with `Alpine.js <https://alpinejs.dev/>`_:
+
+.. code-block:: html
+
+    <div x-data="{ tz: null }" @tzdetect:set.document="tz = $event.detail.timezone">
+      <span x-show="tz">Times are shown in <span x-text="tz"></span></span>
+    </div>
+
+or with plain JavaScript:
+
+.. code-block:: javascript
+
+    document.addEventListener("tzdetect:set", function (event) {
+      console.log("Timezone stored:", event.detail.timezone);
+    });
 
 Installation
 ------------
@@ -114,6 +142,25 @@ Installation
        # Session key to use, defaults to "detected_tz"
        TZ_SESSION_KEY = "my-session-key"
 
+   Reload the page once the timezone is detected, so the first page view
+   is shown in the visitor's timezone too:
+
+   .. code-block:: python
+
+       # Defaults to False
+       TZ_DETECT_RELOAD = True
+
+   The page reloads only after the timezone is stored, only on GET requests,
+   and only once, even if the browser keeps rejecting the session cookie.
+   To keep a page from reloading, e.g. while the visitor may already be typing
+   into a form, cancel the event:
+
+   .. code-block:: javascript
+
+       document.addEventListener("tzdetect:set", function (event) {
+         event.preventDefault();
+       });
+
 Please see ``example`` application. This application is used to manually
 test the functionalities of this package. This also serves as a good
 example.
@@ -134,3 +181,20 @@ Future expansion
 - Allow timezones to be manually specified
 - Improve timezone detection
 - Optionally using HTML5's location API for better timezone determination
+
+Contributing
+------------
+
+If you've found a bug, implemented a feature or customized the template and
+think it is useful then please consider contributing. Patches, pull requests or
+just suggestions are welcome!
+
+Credits
+-------
+
+`django-tz-detect <https://github.com/bashu/django-tz-detect/>`_ was originally started by `Adam Charnock <https://adamcharnock.com/>`_ who has now unfortunately abandoned the project.
+
+License
+-------
+
+``django-tz-detect`` is released under the MIT license.
