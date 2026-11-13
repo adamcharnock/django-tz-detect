@@ -38,6 +38,6 @@ jobs:
       - name: Run tests with coverage
         run: uv run --group dev coverage run -m pytest
       - name: Coverage comment
-        uses: py-cov-action/python-coverage-comment-action@v4.5
+        uses: py-cov-action/python-coverage-comment-action@v4.6
         with:
           GITHUB_TOKEN: ${{ github.token }}
