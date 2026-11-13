@@ -1,6 +1,13 @@
 Changes
 -------
 
+0.6.2 (WIP)
+~~~~~~~~~~~
+
+* Switched packaging from setuptools to ``hatchling`` with a ``src`` layout.
+* Moved tests out of the package into ``tests/`` and ported them to pytest.
+* Added djLint pre-commit hooks for templates.
+
 0.6.1 (2026-11-10)
 ~~~~~~~~~~~~~~~~~~
 

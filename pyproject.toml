@@ -1,6 +1,6 @@
 [build-system]
-build-backend = "setuptools.build_meta"
-requires = [ "setuptools>=77" ]
+build-backend = "hatchling.build"
+requires = [ "hatch-fancy-pypi-readme>=24.1", "hatchling>=1.27" ]
 
 [project]
 name = "django-tz-detect"
@@ -31,19 +31,21 @@ classifiers = [
   "Programming Language :: Python :: 3.15",
   "Topic :: Internet :: WWW/HTTP",
   "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+  "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dynamic = [ "readme" ]
 dependencies = [
   "django>=5.2",
 ]
-urls.download = "https://github.com/adamcharnock/django-tz-detect/zipball/master"
-urls.homepage = "https://github.com/adamcharnock/django-tz-detect/"
+urls.download = "https://github.com/bashu/django-tz-detect/zipball/master"
+urls.homepage = "https://github.com/bashu/django-tz-detect/"
 
 [dependency-groups]
 dev = [
   "coverage==7.17.2",
   "django-stubs[compatible-mypy]==6.1.2",
   "django-upgrade==1.33.0",
+  "djlint==1.49.10",
   "mypy==2.4.1",
   "pre-commit==4.7.0",
   "pytest==9.2.0",
@@ -52,12 +54,27 @@ dev = [
   "ruff==0.17.4",
 ]
 
-[tool.setuptools]
-packages.find.include = [ "tz_detect*" ]
-packages.find.exclude = [ "tz_detect.tests*" ]
-package-data.tz_detect = [ "static/**/*", "templates/**/*" ]
-dynamic.readme = { file = [ "README.rst", "CHANGES.rst" ], content-type = "text/x-rst" }
-zip-safe = false
+[tool.hatch]
+metadata.hooks.fancy-pypi-readme.content-type = "text/x-rst"
+metadata.hooks.fancy-pypi-readme.fragments = [ { path = "README.rst" }, { text = "\n" }, { path = "CHANGES.rst" } ]
+build.targets.wheel.packages = [ "src/tz_detect" ]
+build.targets.sdist.only-include = [ "src", "CHANGES.rst", "README.rst" ]
+
+# ==== djLint ====
+[tool.djlint]
+profile = "django"
+include = "H017,H035"
+indent = 2
+max_line_length = 119
+blank_line_after_tag = "load,extends"
+close_void_tags = true
+format_css = true
+format_js = true
+custom_blocks = "element,setvar,slot"
+# TODO: remove T002 when fixed https://github.com/djlint/djLint/issues/687
+ignore = "H006,H030,H031,T002"
+css.indent_size = 2
+js.indent_size = 2
 
 # ==== ruff ====
 [tool.ruff]
@@ -144,25 +161,15 @@ plugins = [
   "mypy_django_plugin.main",
 ]
 warn_unused_configs = true
-overrides = [
-  # Django migrations should not produce any errors:
-  { module = "*.migrations.*", ignore_errors = true },
-]
 
 [tool.django-stubs]
-django_settings_module = "tz_detect.tests.settings"
+django_settings_module = "tests.settings"
 
-[tool.pytest]
-ini_options.minversion = "6.0"
-ini_options.python_files = [
-  "test_*.py",
-  "tests.py",
-]
 # ==== pytest ====
-ini_options.addopts = [ "--ds=tz_detect.tests.settings", "--reuse-db", "--import-mode=importlib" ]
+[tool.pytest]
+ini_options.DJANGO_SETTINGS_MODULE = "tests.settings"
 
-# ==== Coverage ====
+# ==== coverage ====
 [tool.coverage]
 run.source = [ "tz_detect" ]
-run.omit = [ "*/migrations/*", "*/tests/*" ]
 run.relative_files = true

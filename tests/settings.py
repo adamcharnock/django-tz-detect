@@ -2,7 +2,7 @@ SECRET_KEY = "DUMMY_SECRET_KEY"  # noqa: S105
 
 # Application definition
 
-PROJECT_APPS = ["tz_detect.tests", "tz_detect"]
+PROJECT_APPS = ["tests", "tz_detect"]
 
 
 INSTALLED_APPS = [
@@ -13,19 +13,27 @@ INSTALLED_APPS = [
     *PROJECT_APPS,
 ]
 
-ROOT_URLCONF = "tz_detect.tests.urls"
-
 MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "tz_detect.middleware.TimezoneMiddleware",
 ]
 
-SITE_ID = 1
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "APP_DIRS": True,
+    },
+]
+
+ROOT_URLCONF = "tests.urls"
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
-
-USE_TZ = True

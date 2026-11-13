@@ -1,21 +1,16 @@
 """
-Django settings for app project.
+Django settings for the django-tz-detect example project.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.8/topics/settings/
+https://docs.djangoproject.com/en/stable/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.8/ref/settings/
+https://docs.djangoproject.com/en/stable/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
+BASE_DIR = Path(__file__).resolve().parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "YOUR_SECRET_KEY"  # noqa: S105
@@ -25,7 +20,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 PROJECT_APPS = [
@@ -33,72 +27,42 @@ PROJECT_APPS = [
 ]
 
 INSTALLED_APPS = [
-    "django.contrib.auth",
-    "django.contrib.sites",
     "django.contrib.sessions",
     "django.contrib.staticfiles",
-    "django.contrib.contenttypes",
     *PROJECT_APPS,
 ]
 
-MIDDLEWARE = (
+MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
-    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    # 'django.contrib.messages.middleware.MessageMiddleware',
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'django.middleware.security.SecurityMiddleware',
     "tz_detect.middleware.TimezoneMiddleware",
-)
+]
 
 ROOT_URLCONF = "example.urls"
-
-SITE_ID = 1
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            Path(__file__).resolve().parent / "templates",
+            BASE_DIR / "templates",
         ],
         "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-            ],
-        },
     },
 ]
 
-
 # Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+# https://docs.djangoproject.com/en/stable/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    },
-}
+DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
 
+# Keep sessions in signed cookies, so the in-memory database needs no migrations.
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.7/topics/i18n/
-
-LANGUAGE_CODE = "en-us"
+# https://docs.djangoproject.com/en/stable/topics/i18n/
 
 TIME_ZONE = "UTC"
 
-USE_I18N = True
-
-USE_TZ = True
-
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
+# https://docs.djangoproject.com/en/stable/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = "static/"

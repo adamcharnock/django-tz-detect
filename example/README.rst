@@ -1,27 +1,13 @@
 Example
 =======
 
-To run the example application, make sure you have the required
-packages installed.  You can do this using following commands :
+A minimal Django project for trying out ``django-tz-detect`` by hand.
+
+Run it from the repository root with `uv <https://docs.astral.sh/uv/>`_:
 
 .. code-block:: bash
 
-    mkvirtualenv example
-    pip install -r example/requirements.txt
+    uv run python -m example.manage runserver
 
-This assumes you already have ``virtualenv`` and ``virtualenvwrapper``
-installed and configured.
-
-Next, you can setup the django instance using :
-
-.. code-block:: bash
-
-    python example/manage.py syncdb --noinput
-
-And run it :
-
-.. code-block:: bash
-
-    python example/manage.py runserver
-
-Good luck!
+Then open http://127.0.0.1:8000/. After the first page view the detected
+timezone is stored in the session; reload the page to see the time in it.
