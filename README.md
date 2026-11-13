@@ -5,15 +5,15 @@
 | Name                                        |    Stmts |     Miss |   Cover |   Missing |
 |-------------------------------------------- | -------: | -------: | ------: | --------: |
 | src/tz\_detect/\_\_init\_\_.py              |        0 |        0 |    100% |           |
-| src/tz\_detect/defaults.py                  |        4 |        0 |    100% |           |
-| src/tz\_detect/middleware.py                |       25 |        4 |     84% |9-10, 31, 39 |
+| src/tz\_detect/defaults.py                  |        5 |        0 |    100% |           |
+| src/tz\_detect/middleware.py                |       23 |        2 |     91% |    27, 35 |
 | src/tz\_detect/models.py                    |        0 |        0 |    100% |           |
 | src/tz\_detect/templatetags/\_\_init\_\_.py |        0 |        0 |    100% |           |
-| src/tz\_detect/templatetags/tz\_detect.py   |        9 |        0 |    100% |           |
+| src/tz\_detect/templatetags/tz\_detect.py   |       11 |        0 |    100% |           |
 | src/tz\_detect/urls.py                      |        3 |        0 |    100% |           |
-| src/tz\_detect/utils.py                     |       66 |        5 |     92% |36-37, 92, 106-107 |
-| src/tz\_detect/views.py                     |       22 |        0 |    100% |           |
-| **TOTAL**                                   |  **129** |    **9** | **93%** |           |
+| src/tz\_detect/utils.py                     |       71 |        5 |     93% |42-43, 98, 114-115 |
+| src/tz\_detect/views.py                     |       23 |        0 |    100% |           |
+| **TOTAL**                                   |  **136** |    **7** | **95%** |           |
 
 
 ## Setup coverage badge
