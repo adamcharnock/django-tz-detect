@@ -10,4 +10,5 @@ Run it from the repository root with `uv <https://docs.astral.sh/uv/>`_:
     uv run python -m example.manage runserver
 
 Then open http://127.0.0.1:8000/. After the first page view the detected
-timezone is stored in the session; reload the page to see the time in it.
+timezone is stored in the session, and the page reloads once to show the
+time in it.

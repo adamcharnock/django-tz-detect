@@ -40,6 +40,33 @@ The JavaScript will not be displayed in future requests. If the stored
 timezone becomes unusable, it is dropped from the session and detected
 again on the next page view.
 
+Once the timezone is stored, the script fires a ``tzdetect:set`` event on
+``document``, with ``timezone`` and ``offset`` in ``event.detail``. Use it
+to update the parts of the first page that show dates and times, for
+example with `htmx <https://htmx.org/>`_:
+
+.. code-block:: html
+
+    <div hx-get="/bookings/" hx-trigger="tzdetect:set from:document">
+      ...
+    </div>
+
+with `Alpine.js <https://alpinejs.dev/>`_:
+
+.. code-block:: html
+
+    <div x-data="{ tz: null }" @tzdetect:set.document="tz = $event.detail.timezone">
+      <span x-show="tz">Times are shown in <span x-text="tz"></span></span>
+    </div>
+
+or with plain JavaScript:
+
+.. code-block:: javascript
+
+    document.addEventListener("tzdetect:set", function (event) {
+      console.log("Timezone stored:", event.detail.timezone);
+    });
+
 Installation
 ------------
 

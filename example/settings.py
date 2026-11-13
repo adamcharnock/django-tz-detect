@@ -46,6 +46,12 @@ TEMPLATES = [
             BASE_DIR / "templates",
         ],
         "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.request",
+            ],
+        },
     },
 ]
 

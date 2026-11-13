@@ -7,6 +7,11 @@ Changes
 * Switched packaging from setuptools to ``hatchling`` with a ``src`` layout.
 * Moved tests out of the package into ``tests/`` and ported them to pytest.
 * Added djLint pre-commit hooks for templates.
+* Added a ``tzdetect:set`` event, fired on ``document`` once the detected
+  timezone is stored, so pages can refresh dates without a reload, #72.
+* Modernized ``tzdetect.js``: it now uses ``fetch()`` and dropped support
+  for Internet Explorer. It no longer leaks the ``areCookiesEnabled``
+  global function.
 
 0.6.1 (2026-11-10)
 ~~~~~~~~~~~~~~~~~~
