@@ -153,7 +153,7 @@ keep_full_version = true
 # ==== mypy ====
 [tool.mypy]
 ignore_missing_imports = true
-python_version = "3.15"
+python_version = "3.11"
 check_untyped_defs = true
 warn_redundant_casts = true
 warn_unused_ignores = true
